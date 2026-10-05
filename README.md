@@ -16,10 +16,10 @@ the end of the course it holds the platform your group defends orally:
 
 | Name | GitHub | Role |
 |---|---|---|
-| | | |
-| | | |
-| | | |
-| | | |
+| Lucas Duthu| | Admin|
+| Mathilde Maudet| | Admin|
+| Laura Oldakowski| | Admin|
+| Emma Neumayer| | Admin|
 
 ## How this repo grows
 
