@@ -18,8 +18,8 @@ the end of the course it holds the platform your group defends orally:
 |---|---|---|
 | Lucas Duthu| | Admin|
 | Mathilde Maudet| | Admin|
-| Laura Oldakowski| | Admin|
-| Emma Neumayer| | Admin|
+| Laura Oldakowski| loldakowski| Admin|
+| Emma Neumayer| emmaneumayer-lang| Admin|
 
 ## How this repo grows
 
