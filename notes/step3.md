@@ -143,3 +143,18 @@ Access Denied: Dataset data-engineering-i1:g03_bronze: Permission bigquery.table
 - Offsets Kafka commités APRÈS l'écriture du lot (at-least-once), l'inverse du piège du lab `l11-review`.
 - Un message invalide part en DLQ avec sa raison et n'arrête jamais le consumer.
 - `customer` : liste de colonnes explicite, pour qu'aucune colonne secrète n'arrive par défaut.
+
+## Récapitulatif final
+
+| Étape | Statut | Preuve |
+|---|---|---|
+| Extracteur `orders`, 3 runs | ✅ | curseur 0 → 50 000 → 223 167 → 223 174 ; commit `518920d` |
+| Test de retry | ✅ | 4 avertissements (2, 4, 8, 16 s), abandon, curseur inchangé |
+| Extracteur `customer` sans `pwd` | ✅ | 130 786 lignes ; `ingestion/proof/customer_columns.txt`, `grep -c pwd` → 0 ; commit `a5d2659` |
+| Consumer et DLQ | ✅ | 3 événements cassés dans `g03_bronze.clickstream_dlq` (`ingestion/proof/dlq.txt`) ; commits `49a2017`, `840aed4` |
+| Tables externes `clickstream_dlq` et `customer_extract_external` | ✅ | créées à la main par Mathilde (création bloquée par le mode automatique de Claude Code) ; commit `cd64bb7` |
+| `qty` et `order_id` en `Int64` | ✅ | anciens fichiers `double` (4), nouveaux `int64` (2) ; un lot de 2 `product_viewed` n'a pas ces colonnes ; commit `4d470f9` |
+| `docs/ingestion-failure-modes.md` | ✅ | commit `ceb7473` |
+| `docs/adr/0003-ingestion-modes.md` | ✅ | commit `fb7b04e` |
+| Connecteur Airbyte (route 1) | ❌ | création de service account refusée dans `data-engineering-i1` : route 3 |
+| PR | ✅ | https://github.com/lucasduthu/Group-3-Data-Eng-CLoud-Infra/pull/2, reviewer `eneumayer-lang` |
