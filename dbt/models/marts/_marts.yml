@@ -1,0 +1,75 @@
+version: 2
+
+models:
+  - name: fct_order_items
+    description: "One row per product per order. GRAIN: (order_id, p_id)."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [order_id, p_id]
+    columns:
+      - name: p_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: p_id
+      - name: order_date
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_day
+      - name: qty
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 1
+      - name: country
+        tests: [not_null]
+
+  - name: fct_daily_demand
+    description: "One row per product per country per day. GRAIN: (p_id, country, order_date)."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [p_id, country, order_date]
+    columns:
+      - name: demand_key
+        tests: [unique, not_null]
+      - name: units
+        tests: [not_null]
+      - name: p_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: p_id
+
+  - name: dim_product
+    description: "One row per product. GRAIN: (p_id)."
+    columns:
+      - name: p_id
+        tests: [unique, not_null]
+      - name: product_name
+        tests:
+          - not_null:
+              config:
+                severity: warn
+      - name: avg_rating
+        tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 1
+                max_value: 5
+              config:
+                where: "avg_rating IS NOT NULL"
+
+  - name: dim_date
+    description: "One row per calendar day. GRAIN: (date_day)."
+    columns:
+      - name: date_day
+        tests: [unique, not_null]
