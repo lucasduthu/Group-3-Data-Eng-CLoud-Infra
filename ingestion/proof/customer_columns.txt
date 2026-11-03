@@ -1,0 +1,12 @@
+# 2026-11-03 18:09 UTC · bq --location=europe-west1 query: SELECT column_name, data_type FROM `data-engineering-i1.g03_bronze.INFORMATION_SCHEMA.COLUMNS` WHERE table_name = 'customer_extract_external' ORDER BY ordinal_position
++---------------+-----------+
+|  column_name  | data_type |
++---------------+-----------+
+| c_id          | STRING    |
+| fname         | STRING    |
+| lname         | STRING    |
+| phone         | STRING    |
+| email         | STRING    |
+| _extracted_at | TIMESTAMP |
+| extract_date  | STRING    |
++---------------+-----------+
