@@ -1,0 +1,5 @@
+default_storage_class: STANDARD
+location: EUROPE-WEST1
+name: albert-de-msc2-26-g03-bronze
+public_access_prevention: enforced
+uniform_bucket_level_access: true
