@@ -1,0 +1,30 @@
+version: 2
+
+sources:
+  - name: marketplace
+    description: "Tables natives chargées par Emma au step 4 (dataset g03_warehouse). dbt ne les modifie jamais."
+    database: data-engineering-i1
+    schema: g03_warehouse
+    tables:
+      - name: orders
+        description: "Une ligne par commande."
+        # Seuils À ADAPTER et à justifier (une phrase chacun) : le reporting quotidien
+        # casse si les commandes ont plus d'un jour. Les données du cours sont historiques :
+        # ce freshness échouera tant que le DAG du step 7 ne charge pas de jours récents.
+        config:
+          loaded_at_field: "CAST(order_date AS TIMESTAMP)"
+          freshness:
+            warn_after:  {count: 1, period: day}
+            error_after: {count: 2, period: day}
+      - name: order_items
+        description: "Une ligne par produit dans une commande (order_date ajoutée au chargement)."
+      - name: review
+        description: "Un avis client : note et texte libre. Pas de produit ici, voir product_reviews."
+      - name: product_reviews
+        description: "Table de liaison avis -> produit."
+      - name: product
+        description: "Catalogue produit."
+      - name: customer_shipping
+        description: "Adresses d'un client ; is_default = 1 pour l'adresse par défaut."
+      - name: shipping_details
+        description: "Détail des adresses (pays, ville, téléphone : données personnelles)."
