@@ -45,6 +45,7 @@ TOPIC = os.environ.get("CLICKSTREAM_TOPIC", "clickstream")
 GROUP = os.environ.get("CONSUMER_GROUP", "g03-clickstream-to-bronze")
 BATCH_SIZE = int(os.environ.get("BATCH_SIZE", "2000"))
 FLUSH_EVERY_S = int(os.environ.get("FLUSH_EVERY_S", "60"))
+INT_COLUMNS = ("qty", "order_id")   # toujours écrites en INT64 dans le Parquet
 
 SCHEMA_DIR = pathlib.Path(__file__).parent
 VALIDATORS = {
@@ -91,7 +92,13 @@ def flush(valid: list, rejected: list) -> None:
         by_day[e["event_time"][:10]].append(e)
     for dt, events in by_day.items():
         path = f"gs://{BUCKET}/bronze/clickstream/dt={dt}/batch-{stamp}-{run}.parquet"
-        pd.DataFrame(events).to_parquet(path, index=False)
+        df = pd.DataFrame(events)
+        # Entier nullable : sinon un lot avec des valeurs manquantes écrit du float
+        # et un lot complet de l'int64, et les fichiers n'ont plus le même type.
+        for col in INT_COLUMNS:
+            if col in df:
+                df[col] = df[col].astype("Int64")
+        df.to_parquet(path, index=False)
         log.info("%d événements -> %s", len(events), path)
 
     if rejected:
