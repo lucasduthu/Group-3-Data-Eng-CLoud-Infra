@@ -1,0 +1,226 @@
+creation_time,job_id,total_bytes_processed,total_bytes_billed,cache_hit,query
+2026-11-03 18:41:35.213000 UTC,job_42xmnNQHmMMZJkyUGd4Aju-civ0y,10485760,10485760,false,"SELECT
+  table_name,
+  column_name,
+  data_type
+FROM `data-engineering-i1.g03_bronze.INFORMATION_SCHEMA.COLUMNS`
+WHERE table_name IN (
+  'orders_external',
+  'order_items_external',
+  'review_external'
+)
+ORDER BY table_name, ordinal_position;"
+2026-11-03 18:51:47.342000 UTC,script_job_2dd69b296d25b53619b1de998e270e23_2,1781152,10485760,false,"SELECT
+  COUNT(*) AS total_orders,
+  COUNTIF(order_date IS NULL) AS dates_nulles,
+  MIN(order_date) AS premiere_date,
+  MAX(order_date) AS derniere_date
+FROM `data-engineering-i1.g03_warehouse.orders`"
+2026-11-03 18:56:20.329000 UTC,script_job_c2a40b038ba3c3d09cdd148adb54c196_1,3268480,20971520,false,"SELECT
+  (
+    SELECT COUNT(*)
+    FROM `data-engineering-i1.g03_bronze.order_items_external`
+  ) AS lignes_source,
+  COUNT(*) AS lignes_warehouse,
+  COUNTIF(order_date IS NULL) AS dates_nulles
+FROM `data-engineering-i1.g03_warehouse.order_items`"
+2026-11-03 18:57:50.334000 UTC,script_job_7aa9353019ee6f74b2206edd7c56716b_5,0,0,false,"SELECT 'orders' AS table_name, COUNT(*) AS lignes
+FROM `data-engineering-i1.g03_warehouse.orders`
+
+UNION ALL
+SELECT 'order_items', COUNT(*)
+FROM `data-engineering-i1.g03_warehouse.order_items`
+
+UNION ALL
+SELECT 'review', COUNT(*)
+FROM `data-engineering-i1.g03_warehouse.review`
+
+UNION ALL
+SELECT 'product_reviews', COUNT(*)
+FROM `data-engineering-i1.g03_warehouse.product_reviews`
+
+UNION ALL
+SELECT 'product', COUNT(*)
+FROM `data-engineering-i1.g03_warehouse.product`
+
+UNION ALL
+SELECT 'customer_shipping', COUNT(*)
+FROM `data-engineering-i1.g03_warehouse.customer_shipping`
+
+UNION ALL
+SELECT 'shipping_details', COUNT(*)
+FROM `data-engineering-i1.g03_warehouse.shipping_details`
+
+ORDER BY table_name"
+2026-11-03 21:09:01.462000 UTC,job_RmNK6BA6xz7-SyPm-Wbn9M5j-vjK,9805440,10485760,false,"-- Q1 baseline : chiffre d'affaires mensuel sur 12 mois
+SELECT
+  DATE_TRUNC(order_date, MONTH) AS month,
+  ROUND(SUM(qty * price_at_purchase), 2) AS revenue
+FROM `data-engineering-i1.g03_warehouse.order_items`
+WHERE order_date >= DATE_SUB(DATE '2026-09-14', INTERVAL 12 MONTH)
+  AND order_date <= DATE '2026-09-14'
+GROUP BY month
+ORDER BY month;"
+2026-11-03 21:14:52.494000 UTC,job_SfSBaQFNX_-5Nvl0YKzXVv_9xduv,11439680,11534336,false,"-- Q2 baseline : top 10 produits par quantité vendue
+SELECT
+  p_id,
+  SUM(qty) AS units
+FROM `data-engineering-i1.g03_warehouse.order_items`
+WHERE order_date >= DATE_SUB(DATE '2026-09-14', INTERVAL 3 MONTH)
+  AND order_date <= DATE '2026-09-14'
+GROUP BY p_id
+ORDER BY units DESC, p_id
+LIMIT 10;"
+2026-11-03 21:18:51.132000 UTC,job_RYwyI2ZskdWFz2agK7N0AIHfYR1o,4007592,20971520,false,"-- Q3 baseline : note moyenne par produit
+SELECT
+  pr.p_id,
+  ROUND(AVG(r.rating), 2) AS avg_rating,
+  COUNT(*) AS n_reviews
+FROM `data-engineering-i1.g03_warehouse.review` AS r
+JOIN `data-engineering-i1.g03_warehouse.product_reviews` AS pr
+  ON r.review_id = pr.review_id
+GROUP BY pr.p_id
+HAVING COUNT(*) > 50
+ORDER BY avg_rating DESC, pr.p_id;"
+2026-11-03 21:45:17.707000 UTC,script_job_993d444881251556cdded9615d37c32a_2,10485760,10485760,false,"SELECT
+  partition_id,
+  total_rows,
+  ROUND(total_logical_bytes / 1024 / 1024, 2) AS taille_mib
+FROM `data-engineering-i1.g03_warehouse.INFORMATION_SCHEMA.PARTITIONS`
+WHERE table_name = 'order_items_p'
+ORDER BY partition_id"
+2026-11-03 21:49:09.476000 UTC,job_Rge9IXdr0JOSjAqwwBhblptiOBmY,3373224,10485760,false,"-- Q1 après partitionnement
+SELECT
+  DATE_TRUNC(order_date, MONTH) AS month,
+  ROUND(SUM(qty * price_at_purchase), 2) AS revenue
+FROM `data-engineering-i1.g03_warehouse.order_items_p`
+WHERE order_date >= DATE_SUB(DATE '2026-09-14', INTERVAL 12 MONTH)
+  AND order_date <= DATE '2026-09-14'
+GROUP BY month
+ORDER BY month;"
+2026-11-03 22:27:21.826000 UTC,job_UlBeakmxb18xlFVMxBtTsvVM9nrp,1000888,10485760,false,"-- Q2 après partitionnement
+SELECT
+  p_id,
+  SUM(qty) AS units
+FROM `data-engineering-i1.g03_warehouse.order_items_p`
+WHERE order_date >= DATE_SUB(DATE '2026-09-14', INTERVAL 3 MONTH)
+  AND order_date <= DATE '2026-09-14'
+GROUP BY p_id
+ORDER BY units DESC, p_id
+LIMIT 10;"
+2026-11-03 22:30:27.913000 UTC,job_an893k3em1wgS6fM32x5sYWcCAf2,1000888,10485760,false,"-- Q2 après partitionnement + clustering
+SELECT
+  p_id,
+  SUM(qty) AS units
+FROM `data-engineering-i1.g03_warehouse.order_items_pc`
+WHERE order_date >= DATE_SUB(DATE '2026-09-14', INTERVAL 3 MONTH)
+  AND order_date <= DATE '2026-09-14'
+GROUP BY p_id
+ORDER BY units DESC, p_id
+LIMIT 10;"
+2026-11-03 22:32:32.026000 UTC,job__Cp66JIgu2UEhKHjo4avaD1Xae_y,4007592,20971520,false,"-- Q3 après clustering
+SELECT
+  pr.p_id,
+  ROUND(AVG(r.rating), 2) AS avg_rating,
+  COUNT(*) AS n_reviews
+FROM `data-engineering-i1.g03_warehouse.review` AS r
+JOIN `data-engineering-i1.g03_warehouse.product_reviews_c` AS pr
+  ON r.review_id = pr.review_id
+GROUP BY pr.p_id
+HAVING COUNT(*) > 50
+ORDER BY avg_rating DESC, pr.p_id;"
+2026-11-03 22:33:55.311000 UTC,job__bvB8gNOAuhjKuCSWlXPHXLVYgHS,8171200,10485760,false,"WITH product_days AS (
+  SELECT
+    p_id,
+    order_date,
+    COUNT(*) AS n_lines
+  FROM `data-engineering-i1.g03_warehouse.order_items_p`
+  GROUP BY p_id, order_date
+)
+SELECT
+  SUM(n_lines) AS lignes_commandes,
+  COUNT(*) AS lignes_apres_agregation,
+  ROUND(
+    SAFE_DIVIDE(SUM(n_lines), COUNT(*)),
+    2
+  ) AS collapse_ratio
+FROM product_days;"
+2026-11-03 22:37:11.282000 UTC,job_XKuRDXJyUMo1H8yR_40AYsMIxwcF,876204,10485760,false,"-- Q2 sur la vue matérialisée quotidienne
+SELECT
+  p_id,
+  SUM(units) AS units
+FROM `data-engineering-i1.g03_warehouse.mv_daily_demand`
+WHERE order_date >= DATE_SUB(DATE '2026-09-14', INTERVAL 3 MONTH)
+  AND order_date <= DATE '2026-09-14'
+GROUP BY p_id
+ORDER BY units DESC, p_id
+LIMIT 10;"
+2026-11-03 22:38:35.237000 UTC,job_Z0oHeV3qdGCyTIlkxqPr7um98K50,8171200,10485760,false,"WITH product_weeks AS (
+  SELECT
+    p_id,
+    DATE_TRUNC(order_date, WEEK) AS week,
+    COUNT(*) AS n_lines
+  FROM `data-engineering-i1.g03_warehouse.order_items_p`
+  GROUP BY p_id, week
+)
+SELECT
+  SUM(n_lines) AS lignes_commandes,
+  COUNT(*) AS lignes_apres_agregation,
+  ROUND(
+    SAFE_DIVIDE(SUM(n_lines), COUNT(*)),
+    2
+  ) AS collapse_ratio_semaine
+FROM product_weeks;"
+2026-11-03 22:43:21.184000 UTC,job_bZ1uX5XdPQUxW5bDsaiiUr0GNoEI,1039080,10485760,false,"-- Référence sur des semaines complètes
+SELECT
+  p_id,
+  SUM(qty) AS units
+FROM `data-engineering-i1.g03_warehouse.order_items_p`
+WHERE order_date >= DATE '2025-06-15'
+  AND order_date < DATE '2025-09-14'
+GROUP BY p_id
+ORDER BY units DESC, p_id
+LIMIT 10;"
+2026-11-03 22:44:03.332000 UTC,job_35bpRqIGDQXYZX8QY78DHZGxG45q,6309660,10485760,false,"-- Même calcul sur la vue hebdomadaire
+SELECT
+  p_id,
+  SUM(units) AS units
+FROM `data-engineering-i1.g03_warehouse.mv_weekly_demand`
+WHERE week >= DATE '2025-06-15'
+  AND week < DATE '2025-09-14'
+GROUP BY p_id
+ORDER BY units DESC, p_id
+LIMIT 10;"
+2026-11-03 22:48:58.696000 UTC,job_XHYute8Q7NBn09xFKvHFOtmmi9BP,7348740,10485760,false,"WITH depuis_table AS (
+  SELECT
+    p_id,
+    SUM(qty) AS units
+  FROM `data-engineering-i1.g03_warehouse.order_items_p`
+  WHERE order_date >= DATE '2025-06-15'
+    AND order_date < DATE '2025-09-14'
+  GROUP BY p_id
+),
+depuis_vue AS (
+  SELECT
+    p_id,
+    SUM(units) AS units
+  FROM `data-engineering-i1.g03_warehouse.mv_weekly_demand`
+  WHERE week >= DATE '2025-06-15'
+    AND week < DATE '2025-09-14'
+  GROUP BY p_id
+),
+ecarts AS (
+  (
+    SELECT * FROM depuis_table
+    EXCEPT DISTINCT
+    SELECT * FROM depuis_vue
+  )
+  UNION ALL
+  (
+    SELECT * FROM depuis_vue
+    EXCEPT DISTINCT
+    SELECT * FROM depuis_table
+  )
+)
+SELECT COUNT(*) AS nombre_ecarts
+FROM ecarts;"
