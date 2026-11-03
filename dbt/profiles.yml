@@ -1,0 +1,20 @@
+# Aucun secret ici : method oauth = la connexion gcloud de la personne qui lance dbt.
+albert:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: data-engineering-i1
+      dataset: "g03_dbt_{{ env_var('DBT_USER', 'dev') }}"   # chacun son dataset de dev : g03_dbt_md, g03_dbt_le...
+      location: europe-west1
+      threads: 4
+      maximum_bytes_billed: 1000000000                # plafond 1 Go par requête (cap du step 4)
+    prod:
+      type: bigquery
+      method: oauth
+      project: data-engineering-i1
+      dataset: g03_analytics
+      location: europe-west1
+      threads: 4
+      maximum_bytes_billed: 1000000000
