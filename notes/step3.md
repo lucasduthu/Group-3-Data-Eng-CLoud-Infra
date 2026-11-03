@@ -13,7 +13,7 @@ Mesures du 2026-11-03. Bucket `gs://albert-de-msc2-26-g03-bronze`, entreprise lo
 | DLQ | ✅ | 3 événements cassés dans `bronze/_dlq/clickstream/dt=2026-11-03/`, consumer toujours vivant |
 | Extracteur `customer` sans `pwd` | ✅ | 130 786 lignes, `SELECT pwd` → `Unrecognized name: pwd` |
 | Connecteur Airbyte (route 1) | ❌ | permission refusée dans le projet partagé : on passe en route 3 (voir plus bas) |
-| Tables externes permanentes `customer_extract_external` et `clickstream_dlq` | ⏸️ | pas encore créées ; preuves faites par table externe temporaire et lecture du Parquet |
+| Tables externes `g03_bronze.customer_extract_external` et `g03_bronze.clickstream_dlq` | ✅ | créées à la main par Mathilde dans la console BigQuery (le mode automatique de Claude Code avait bloqué leur création) ; preuves dans `ingestion/proof/dlq.txt` et `ingestion/proof/customer_columns.txt` |
 
 ## Extracteur `orders` (`ingestion/extract_orders.py`)
 
@@ -78,6 +78,8 @@ SELECT pwd FROM customer_bronze LIMIT 1        -> Unrecognized name: pwd at [1:8
 
 Et par le schéma du Parquet lu directement : `['c_id', 'fname', 'lname', 'phone', 'email', '_extracted_at']`, `pwd présent : False`.
 
+Puis par la table externe `g03_bronze.customer_extract_external`, créée à la main par Mathilde dans la console BigQuery (le mode automatique de Claude Code avait bloqué sa création) : `INFORMATION_SCHEMA.COLUMNS` donne `c_id, fname, lname, phone, email, _extracted_at, extract_date`, `grep -c pwd` → 0. Sortie : `ingestion/proof/customer_columns.txt`.
+
 `phone` et `email` restent des données personnelles en bronze : à classer au step 10.
 
 ## Clickstream (`ingestion/consume_clickstream.py`, `ingestion/clickstream.schema.json`)
@@ -110,7 +112,7 @@ DLQ (3 événements cassés envoyés à 18:57:09, le consumer a continué à éc
 | `invalid_json: Expecting value: line 1 column 1 (char 0)` | `ceci n'est pas du json` |
 | `unknown_schema_version: 99` | `{"schema_version": 99, "event_id": "test-broken-3"}` |
 
-Lu directement dans le Parquet de la DLQ. La table externe `g03_bronze.clickstream_dlq` reste à créer pour la capture demandée.
+Lu d'abord directement dans le Parquet de la DLQ, puis dans la table externe `g03_bronze.clickstream_dlq`, créée à la main par Mathilde dans la console BigQuery (le mode automatique de Claude Code avait bloqué sa création). Sortie de la requête : `ingestion/proof/dlq.txt` (3 lignes, une raison chacune).
 
 **Risque connu** : `qty` et `order_id` sont écrits en float quand un lot mélange des types d'événements (valeurs manquantes), en entier sinon. Une table externe sur `bronze/clickstream/` pourra refuser ce mélange de types entre fichiers.
 
