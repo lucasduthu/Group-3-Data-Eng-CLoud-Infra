@@ -1,0 +1,164 @@
+Step 5 · Résultats de notes/step5-defects.sql
+Lancé le 2026-11-04 sur data-engineering-i1.g03_warehouse (europe-west1), cache désactivé, lecture seule.
+Commande : bq --location=europe-west1 query --use_legacy_sql=false --use_cache=false, une requête à la fois.
+
+
+========================================================================
+-- 1. Colonnes parasites (index pandas exporté avec le CSV)
+SELECT table_name, column_name
+FROM `data-engineering-i1.g03_warehouse.INFORMATION_SCHEMA.COLUMNS`
+WHERE LOWER(column_name) LIKE 'unnamed%' OR column_name LIKE 'int64_field%'
+ORDER BY table_name;
++-------------------+-------------+
+|    table_name     | column_name |
++-------------------+-------------+
+| customer_shipping | Unnamed__0  |
+| orders            | Unnamed__0  |
+| orders_p          | Unnamed__0  |
+| product           | Unnamed__0  |
+| product_reviews   | Unnamed__0  |
+| product_reviews_c | Unnamed__0  |
+| review            | Unnamed__0  |
+| shipping_details  | Unnamed__0  |
++-------------------+-------------+
+
+
+========================================================================
+-- 2. Textes vides ou faits d'espaces dans les avis -> stg_review
+SELECT
+  COUNTIF(r_desc = '')                     AS desc_empty,
+  COUNTIF(TRIM(r_desc) = '' AND r_desc != '') AS desc_blank,
+  COUNTIF(r_desc IS NULL)                  AS desc_null,
+  COUNTIF(title = '')                      AS title_empty,
+  COUNTIF(TRIM(title) = '' AND title != '')   AS title_blank,
+  COUNT(*)                                 AS total
+FROM `data-engineering-i1.g03_warehouse.review`;
++------------+------------+-----------+-------------+-------------+--------+
+| desc_empty | desc_blank | desc_null | title_empty | title_blank | total  |
++------------+------------+-----------+-------------+-------------+--------+
+|          0 |        110 |        27 |           0 |           0 | 111322 |
++------------+------------+-----------+-------------+-------------+--------+
+
+
+========================================================================
+-- 3. Commandes en double -> stg_orders
+SELECT COUNT(*) AS duplicated_order_ids FROM (
+  SELECT order_id FROM `data-engineering-i1.g03_warehouse.orders`
+  GROUP BY order_id HAVING COUNT(*) > 1);
++----------------------+
+| duplicated_order_ids |
++----------------------+
+|                    0 |
++----------------------+
+
+
+========================================================================
+-- 4. Lignes de commande en double -> stg_order_items
+SELECT COUNT(*) AS duplicated_lines FROM (
+  SELECT order_id, p_id FROM `data-engineering-i1.g03_warehouse.order_items`
+  GROUP BY order_id, p_id HAVING COUNT(*) > 1);
++------------------+
+| duplicated_lines |
++------------------+
+|                0 |
++------------------+
+
+
+========================================================================
+-- 5. Clients avec plusieurs adresses par défaut (fan-out) -> stg_addresses
+SELECT COUNT(*) AS customers_with_several_defaults FROM (
+  SELECT c_id FROM `data-engineering-i1.g03_warehouse.customer_shipping`
+  WHERE is_default = 1 GROUP BY c_id HAVING COUNT(*) > 1);
++---------------------------------+
+| customers_with_several_defaults |
++---------------------------------+
+|                               0 |
++---------------------------------+
+
+
+========================================================================
+-- ... et clients sans adresse par défaut (ils auront country = 'UNKNOWN')
+SELECT COUNT(DISTINCT o.buyer_id) AS buyers_without_default_address
+FROM `data-engineering-i1.g03_warehouse.orders` o
+LEFT JOIN `data-engineering-i1.g03_warehouse.customer_shipping` cs
+  ON cs.c_id = o.buyer_id AND cs.is_default = 1
+WHERE cs.c_id IS NULL;
++--------------------------------+
+| buyers_without_default_address |
++--------------------------------+
+|                              0 |
++--------------------------------+
+
+
+========================================================================
+-- 6. Produits : doublons et noms vides -> stg_product
+SELECT
+  COUNT(*) - COUNT(DISTINCT p_id)            AS duplicated_p_ids,
+  COUNTIF(p_name IS NULL OR TRIM(p_name) = '') AS empty_names
+FROM `data-engineering-i1.g03_warehouse.product`;
++------------------+-------------+
+| duplicated_p_ids | empty_names |
++------------------+-------------+
+|                0 |           6 |
++------------------+-------------+
+
+
+========================================================================
+-- 7. Avis : notes hors 1-5, doublons, liens orphelins -> stg_review / stg_product_reviews
+SELECT rating, COUNT(*) AS n FROM `data-engineering-i1.g03_warehouse.review` GROUP BY rating ORDER BY rating;
++--------+-------+
+| rating |   n   |
++--------+-------+
+|      1 | 16306 |
+|      2 |  6827 |
+|      3 |  8993 |
+|      4 | 12681 |
+|      5 | 66515 |
++--------+-------+
+
+
+========================================================================
+-- 7. Avis : notes hors 1-5, doublons, liens orphelins -> stg_review / stg_product_reviews
+SELECT COUNT(*) - COUNT(DISTINCT review_id) AS duplicated_review_ids FROM `data-engineering-i1.g03_warehouse.review`;
++-----------------------+
+| duplicated_review_ids |
++-----------------------+
+|                     0 |
++-----------------------+
+
+
+========================================================================
+-- 7. Avis : notes hors 1-5, doublons, liens orphelins -> stg_review / stg_product_reviews
+SELECT COUNT(*) AS reviews_linked_to_unknown_product
+FROM `data-engineering-i1.g03_warehouse.product_reviews` pr
+LEFT JOIN `data-engineering-i1.g03_warehouse.product` p USING (p_id)
+WHERE p.p_id IS NULL;
++-----------------------------------+
+| reviews_linked_to_unknown_product |
++-----------------------------------+
+|                                 0 |
++-----------------------------------+
+
+
+========================================================================
+-- 8. Plage des dates de commande -> dim_date (GENERATE_DATE_ARRAY doit la couvrir)
+SELECT MIN(order_date) AS first_order, MAX(order_date) AS last_order
+FROM `data-engineering-i1.g03_warehouse.orders`;
++-------------+------------+
+| first_order | last_order |
++-------------+------------+
+|  2023-09-15 | 2026-09-14 |
++-------------+------------+
+
+
+========================================================================
+-- 9. Lignes de commande dont le produit n'existe pas (le test relationships échouera dessus)
+SELECT COUNT(*) AS orphan_lines
+FROM `data-engineering-i1.g03_warehouse.order_items` i
+LEFT JOIN `data-engineering-i1.g03_warehouse.product` p USING (p_id)
+WHERE p.p_id IS NULL;
++--------------+
+| orphan_lines |
++--------------+
+|            0 |
++--------------+

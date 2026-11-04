@@ -1,0 +1,67 @@
+version: 2
+
+sources:
+  - name: marketplace
+    description: "Tables natives chargées par Emma au step 4 (dataset g03_warehouse). dbt ne les modifie jamais."
+    database: data-engineering-i1
+    schema: g03_warehouse
+    # Seuils communs : le DAG du step 7 charge une fois par jour (ADR-0001). Warn après 1 jour sans
+    # chargement (un run raté), error après 2 (deux runs ratés : les marts ne sont plus à jour).
+    tables:
+      - name: orders
+        description: "Une ligne par commande."
+        # PROXY : orders n'a pas de colonne de chargement (pas d'ingest_date dans g03_warehouse,
+        # vérifié dans INFORMATION_SCHEMA.COLUMNS le 2026-11-04). order_date est la date de COMMANDE,
+        # pas la date de chargement : ce contrôle mesure l'âge de la dernière commande, pas celui du
+        # dernier chargement. Seuils : le reporting quotidien casse si les commandes ont plus d'un jour.
+        # Les données du cours s'arrêtent au 2026-09-14 : ce freshness échouera tant que le DAG
+        # du step 7 ne charge pas de jours récents.
+        config:
+          loaded_at_field: "CAST(order_date AS TIMESTAMP)"
+          freshness:
+            warn_after:  {count: 1, period: day}
+            error_after: {count: 2, period: day}
+      - name: order_items
+        description: "Une ligne par produit dans une commande (order_date ajoutée au chargement)."
+        # Pas de freshness : pas de colonne de chargement, et order_items est rechargée avec orders
+        # (jointure dans warehouse/load_native.sql), dont le contrôle couvre déjà l'âge.
+      - name: review
+        description: "Un avis client : note et texte libre. Pas de produit ici, voir product_reviews."
+        # Vraie colonne de chargement : ingest_date (partition Hive du bronze, STRING 'YYYY-MM-DD').
+        config:
+          loaded_at_field: "CAST(PARSE_DATE('%Y-%m-%d', ingest_date) AS TIMESTAMP)"
+          freshness:
+            warn_after:  {count: 1, period: day}
+            error_after: {count: 2, period: day}
+      - name: product_reviews
+        description: "Table de liaison avis -> produit."
+        # Vraie colonne de chargement : ingest_date (partition Hive du bronze, STRING 'YYYY-MM-DD').
+        config:
+          loaded_at_field: "CAST(PARSE_DATE('%Y-%m-%d', ingest_date) AS TIMESTAMP)"
+          freshness:
+            warn_after:  {count: 1, period: day}
+            error_after: {count: 2, period: day}
+      - name: product
+        description: "Catalogue produit."
+        # Vraie colonne de chargement : ingest_date (partition Hive du bronze, STRING 'YYYY-MM-DD').
+        config:
+          loaded_at_field: "CAST(PARSE_DATE('%Y-%m-%d', ingest_date) AS TIMESTAMP)"
+          freshness:
+            warn_after:  {count: 1, period: day}
+            error_after: {count: 2, period: day}
+      - name: customer_shipping
+        description: "Adresses d'un client ; is_default = 1 pour l'adresse par défaut."
+        # Vraie colonne de chargement : ingest_date (partition Hive du bronze, STRING 'YYYY-MM-DD').
+        config:
+          loaded_at_field: "CAST(PARSE_DATE('%Y-%m-%d', ingest_date) AS TIMESTAMP)"
+          freshness:
+            warn_after:  {count: 1, period: day}
+            error_after: {count: 2, period: day}
+      - name: shipping_details
+        description: "Détail des adresses (pays, ville, téléphone : données personnelles)."
+        # Vraie colonne de chargement : ingest_date (partition Hive du bronze, STRING 'YYYY-MM-DD').
+        config:
+          loaded_at_field: "CAST(PARSE_DATE('%Y-%m-%d', ingest_date) AS TIMESTAMP)"
+          freshness:
+            warn_after:  {count: 1, period: day}
+            error_after: {count: 2, period: day}

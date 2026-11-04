@@ -1,0 +1,86 @@
+version: 2
+
+models:
+  - name: fct_order_items
+    description: "One row per product per order. GRAIN: (order_id, p_id)."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [order_id, p_id]
+    columns:
+      - name: p_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: p_id
+      - name: order_date
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_day
+      - name: qty
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 1
+      - name: country
+        tests: [not_null]
+      - name: line_revenue
+        description: "qty * price_at_purchase. Never negative or NULL (assert_line_revenue_is_positive); 0 on the zero-price lines."
+        tests: [not_null]
+      - name: is_zero_price_anomaly
+        description: >
+          TRUE when price_at_purchase is 0.00. On 2026-11-04 this is 30 lines on 5 products whose
+          catalogue price is below 0.005, so ROUND(price, 2) stored 0.00. The price is not replaced
+          and no amount is estimated: line_revenue stays 0 on these lines. The lines are kept so
+          their units count in fct_daily_demand. Test assert_no_zero_price_lines (warn) lists them
+          at every build.
+        tests: [not_null]
+
+  - name: fct_daily_demand
+    description: "One row per product per country per day. GRAIN: (p_id, country, order_date)."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [p_id, country, order_date]
+    columns:
+      - name: demand_key
+        tests: [unique, not_null]
+      - name: units
+        tests: [not_null]
+      - name: p_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: p_id
+
+  - name: dim_product
+    description: "One row per product. GRAIN: (p_id)."
+    columns:
+      - name: p_id
+        tests: [unique, not_null]
+      - name: product_name
+        tests:
+          - not_null:
+              config:
+                severity: warn
+      - name: avg_rating
+        tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 1
+                max_value: 5
+              config:
+                where: "avg_rating IS NOT NULL"
+
+  - name: dim_date
+    description: "One row per calendar day. GRAIN: (date_day)."
+    columns:
+      - name: date_day
+        tests: [unique, not_null]

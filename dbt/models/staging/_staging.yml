@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: "One row per order. GRAIN: (order_id)."
+    columns:
+      - name: order_id
+        tests: [unique, not_null]
+      - name: order_date
+        tests: [not_null]
+
+  - name: stg_order_items
+    description: "One row per product per order. GRAIN: (order_id, p_id)."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [order_id, p_id]
+    columns:
+      - name: p_id
+        tests:
+          - not_null
+          # Test en staging : au step 7, il bloque le pipeline AVANT que les marts soient construits.
+          - relationships:
+              arguments:
+                to: ref('stg_product')
+                field: p_id
+
+  - name: stg_review
+    description: "One row per review. GRAIN: (review_id)."
+    columns:
+      - name: review_id
+        tests: [unique, not_null]
+      - name: rating
+        tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 1
+                max_value: 5
+
+  - name: stg_product
+    description: "One row per product. GRAIN: (p_id)."
+    columns:
+      - name: p_id
+        tests: [unique, not_null]
+
+  - name: stg_addresses
+    description: "One row per customer, default address country only. GRAIN: (c_id)."
+    columns:
+      - name: c_id
+        tests: [unique, not_null]
