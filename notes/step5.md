@@ -96,3 +96,9 @@ Le but : vérifier que la branche se construit sans rien de local (`dbt_packages
 | Total | 45 | 45 |
 
 Puis `dbt docs generate` et `dbt docs serve --host 0.0.0.0 --port 8080` dans ce clone ; la capture du graphe est dans `docs/lineage.png`.
+
+## Fraîcheur des sources (2026-11-04, `notes/step5-freshness.txt`)
+
+- `orders` est en **ERROR STALE** : les données du cours s'arrêtent au 2026-09-14 (51,7 jours avant le contrôle). Le contrôle échoue donc, et c'est attendu tant que le step 7 ne charge pas de jours récents.
+- Pour `orders`, le contrôle porte sur `order_date`, un proxy (la date de commande, pas celle du chargement), car la table n'a aucune colonne de chargement. Les 5 tables qui ont `ingest_date` (`review`, `product_reviews`, `product`, `customer_shipping`, `shipping_details`) l'utilisent directement.
+- Ces 5 tables sont en **WARN** : leur dernier chargement date du 2026-11-03 (1,7 jour), au-delà du seuil d'un jour. C'est aussi attendu sans le chargement quotidien du DAG du step 7.

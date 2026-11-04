@@ -1,0 +1,36 @@
+# dbt source freshness, 2026-11-04 16:20 UTC (charlestng/dbt-bigquery:1.12.1, target dev, DBT_USER=md). Exit code 1.
+# Âges en fin de fichier, lus dans target/sources.json.
+
+16:19:55  Running with dbt=1.12.5
+16:19:59  Registered adapter: bigquery=1.12.1
+16:20:00  Found 12 models, 36 data tests, 7 sources, 677 macros
+16:20:00  
+16:20:00  Concurrency: 4 threads (target='dev')
+16:20:00  
+WARNING:google.auth._default:No project ID could be determined. Consider running `gcloud config set project` or setting the GOOGLE_CLOUD_PROJECT environment variable
+16:20:01  Pulling freshness from warehouse metadata tables for 0 sources
+16:20:01  1 of 6 START freshness of marketplace.customer_shipping ........................ [RUN]
+16:20:01  2 of 6 START freshness of marketplace.orders ................................... [RUN]
+16:20:01  3 of 6 START freshness of marketplace.product .................................. [RUN]
+16:20:01  4 of 6 START freshness of marketplace.product_reviews .......................... [RUN]
+16:20:02  1 of 6 WARN freshness of marketplace.customer_shipping ......................... [WARN in 1.04s]
+16:20:02  5 of 6 START freshness of marketplace.review ................................... [RUN]
+16:20:02  3 of 6 WARN freshness of marketplace.product ................................... [WARN in 1.12s]
+16:20:02  6 of 6 START freshness of marketplace.shipping_details ......................... [RUN]
+16:20:02  2 of 6 ERROR STALE freshness of marketplace.orders ............................. [ERROR STALE in 1.16s]
+16:20:02  4 of 6 WARN freshness of marketplace.product_reviews ........................... [WARN in 1.16s]
+16:20:03  6 of 6 WARN freshness of marketplace.shipping_details .......................... [WARN in 0.75s]
+16:20:03  5 of 6 WARN freshness of marketplace.review .................................... [WARN in 0.85s]
+16:20:03  
+16:20:03  Finished running 6 sources in 0 hours 0 minutes and 2.60 seconds (2.60s).
+16:20:03  
+16:20:03  [ERROR]: in source orders (models/sources.yml)
+16:20:03    Status: error
+16:20:03  Done.
+generated_at 2026-11-04T16:20:03.381861Z
+customer_shipping warn 2026-11-03T00:00:00+00:00 1.68 jours
+product warn 2026-11-03T00:00:00+00:00 1.68 jours
+orders error 2026-09-14T00:00:00+00:00 51.68 jours
+product_reviews warn 2026-11-03T00:00:00+00:00 1.68 jours
+shipping_details warn 2026-11-03T00:00:00+00:00 1.68 jours
+review warn 2026-11-03T00:00:00+00:00 1.68 jours
