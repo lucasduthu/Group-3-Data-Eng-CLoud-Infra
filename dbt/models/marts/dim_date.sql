@@ -1,5 +1,5 @@
 -- GRAIN : un jour (date_day).
--- Plage À ADAPTER : elle doit couvrir toutes les order_date (requête 8 de notes/step5-defects.sql).
+-- Plage vérifiée : les commandes vont du 2023-09-15 au 2026-09-14 (requête 8, 2026-11-04), couvertes par 2023-01-01 -> 2027-12-31.
 SELECT
     d                          AS date_day,
     EXTRACT(YEAR FROM d)       AS year,

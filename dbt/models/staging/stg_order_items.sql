@@ -1,10 +1,9 @@
--- Source : warehouse.order_items
--- Défaut corrigé : À REMPLIR couples (order_id, p_id) en double (requête 4) -> quantités additionnées en une ligne.
---                 Si 0 doublon : remplacer par un simple SELECT et l'écrire ici.
+-- Source : g03_warehouse.order_items
+-- Doublons : 0 couple (order_id, p_id) en double (requête 4, 2026-11-04) -> simple sélection, pas d'agrégation ;
+--            le test unique_combination_of_columns (_staging.yml) bloquera le pipeline si un doublon apparaît.
 SELECT
     order_id,
     p_id,
-    SUM(qty)                     AS qty,
-    ANY_VALUE(price_at_purchase) AS price_at_purchase
+    qty,
+    price_at_purchase
 FROM {{ source('marketplace', 'order_items') }}
-GROUP BY order_id, p_id
