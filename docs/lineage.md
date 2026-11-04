@@ -91,5 +91,10 @@ flowchart LR
   `fct_order_items` has a negative or NULL revenue; `assert_no_zero_price_lines`
   (warn) lists the lines sold at 0.00 at every build.
 
-Last `dbt build`: 45 nodes, PASS=44, WARN=1 (6 products without a name, severity
-`warn` on purpose), ERROR=0.
+Last `dbt build` (2026-11-04, after Emma's review): 48 nodes, PASS=46, WARN=2
+(6 products without a name, 30 lines sold at 0.00; both `warn` on purpose),
+ERROR=0.
+
+`docs/lineage.png` predates this change: it still shows the
+`stg_product → int_order_items` edge that was removed with the catalogue-price
+fallback.

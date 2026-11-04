@@ -45,6 +45,8 @@
 | PR | ✅ | [#4](https://github.com/lucasduthu/Group-3-Data-Eng-CLoud-Infra/pull/4), reviewer `eneumayer-lang` |
 | Clone propre | ✅ | Clone neuf de `9a038ab` : `dbt deps` + `dbt build` → PASS=44, WARN=1, ERROR=0, SKIP=0, identique au build n°2 |
 | Capture du lignage | ✅ | `docs/lineage.png` (vue graphe de `dbt docs serve`, Chrome headless 1600x1000) |
+| Corrections de la review d'Emma | ✅ | Prix à 0 signalé, pas remplacé ; tests revus ; fraîcheur sur `ingest_date` |
+| `dbt build` n°3 | ✅ | PASS=46, WARN=2 (6 noms NULL, 30 lignes à prix 0), ERROR=0, SKIP=0 (48 nœuds) ; 1 386 640 unités dans la source comme dans `fct_daily_demand` |
 
 ## Défauts trouvés
 
@@ -66,7 +68,8 @@ Les déduplications retirées restent protégées : les tests de grain bloquent 
 
 - **Symptôme :** `assert_line_revenue_is_positive` renvoie 30 lignes, toutes avec `price_at_purchase = 0.0`, sur 5 produits.
 - **Cause :** sur les 408 560 lignes, `price_at_purchase` vaut exactement `ROUND(product.price, 2)`. Ces 5 produits ont un prix catalogue sous 0,005, que l'arrondi ramène à 0,00. Les ventes sont réelles.
-- **Correction (le modèle, pas le test) :** `int_order_items` ajoute `unit_price`, qui reprend le prix catalogue quand le prix arrondi vaut 0. Les lignes sont gardées.
+- **Première correction (`1712c10`, remplacée) :** `int_order_items` ajoutait `unit_price`, qui reprenait le prix catalogue quand le prix arrondi valait 0.
+- **Correction après la review d'Emma :** plus aucun remplacement. `line_revenue = qty * price_at_purchase` (0 sur les 30 lignes), drapeau `is_zero_price_anomaly` jusqu'à `fct_order_items`, test `assert_line_revenue_is_positive` limité à `< 0 OR IS NULL` (error), nouveau test `assert_no_zero_price_lines` (warn, 30 lignes). Les lignes sont gardées.
 - **Vérification :** 1 386 640 unités dans `order_items` comme dans `fct_daily_demand` ; 0 ligne `UNKNOWN`.
 - **À signaler :** les prix catalogue de ces produits (de 0,0004 à 0,0047) paraissent anormaux. C'est un sujet pour la source, pas pour dbt.
 
