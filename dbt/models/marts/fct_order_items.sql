@@ -4,8 +4,8 @@ SELECT
     i.p_id,
     i.qty,
     i.price_at_purchase,
-    i.unit_price,
-    i.qty * i.unit_price           AS line_revenue,
+    i.qty * i.price_at_purchase    AS line_revenue,
+    i.is_zero_price_anomaly,
     i.order_date,
     COALESCE(a.country, 'UNKNOWN') AS country,
     pr.avg_rating

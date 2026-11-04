@@ -30,6 +30,14 @@ models:
                 min_value: 1
       - name: country
         tests: [not_null]
+      - name: is_zero_price_anomaly
+        description: >
+          TRUE when price_at_purchase is 0.00. On 2026-11-04 this is 30 lines on 5 products whose
+          catalogue price is below 0.005, so ROUND(price, 2) stored 0.00. The price is not replaced
+          and no amount is estimated: line_revenue stays 0 on these lines. The lines are kept so
+          their units count in fct_daily_demand. Test assert_no_zero_price_lines (warn) lists them
+          at every build.
+        tests: [not_null]
 
   - name: fct_daily_demand
     description: "One row per product per country per day. GRAIN: (p_id, country, order_date)."

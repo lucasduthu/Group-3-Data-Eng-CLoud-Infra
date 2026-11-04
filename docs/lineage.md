@@ -49,7 +49,6 @@ flowchart LR
 
   stg_order_items --> int_order_items
   stg_orders --> int_order_items
-  stg_product --> int_order_items
   stg_product_reviews --> int_product_ratings
   stg_review --> int_product_ratings
 
@@ -74,9 +73,9 @@ flowchart LR
 | Staging | `stg_review` | `review_id` | `review` | Turns 110 whitespace-only review texts into NULL |
 | Staging | `stg_product_reviews` | `p_id, review_id` | `product_reviews` | Link table, keys only |
 | Staging | `stg_addresses` | `c_id` | `customer_shipping`, `shipping_details` | Keeps the default address and the country only, so no street or phone goes further |
-| Intermediate | `int_order_items` | `order_id, p_id` | `stg_order_items`, `stg_orders`, `stg_product` | Adds the order date and buyer, and a `unit_price` that falls back to the catalogue price when the rounded purchase price is 0.00 (30 lines) |
+| Intermediate | `int_order_items` | `order_id, p_id` | `stg_order_items`, `stg_orders` | Adds the order date and buyer, and `is_zero_price_anomaly` on the 30 lines whose purchase price was rounded to 0.00 (the price is not replaced) |
 | Intermediate | `int_product_ratings` | `p_id` | `stg_product_reviews`, `stg_review` | Aggregates reviews per product **before** any join, so order lines are not multiplied by the number of reviews |
-| Mart | `fct_order_items` | `order_id, p_id` | `int_order_items`, `stg_addresses`, `int_product_ratings` | One row per product per order, with revenue and country |
+| Mart | `fct_order_items` | `order_id, p_id` | `int_order_items`, `stg_addresses`, `int_product_ratings` | One row per product per order, with revenue (`qty * price_at_purchase`), country and `is_zero_price_anomaly` |
 | Mart | `fct_daily_demand` | `p_id, country, order_date` | `fct_order_items` | The table the ML team asked for: units and revenue per product, country and day |
 | Mart | `dim_product` | `p_id` | `stg_product`, `int_product_ratings` | Product name, price, average rating |
 | Mart | `dim_date` | `date_day` | none (generated) | Calendar from 2023-01-01 to 2027-12-31; orders run from 2023-09-15 to 2026-09-14 |
