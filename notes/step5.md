@@ -43,7 +43,8 @@
 | `dbt build` n°2 | ✅ | PASS=44, WARN=1, ERROR=0, SKIP=0 (45 nœuds) |
 | `dbt docs generate` | ✅ | `target/catalog.json` + `docs/lineage.md` (`014a254`) |
 | PR | ✅ | [#4](https://github.com/lucasduthu/Group-3-Data-Eng-CLoud-Infra/pull/4), reviewer `eneumayer-lang` |
-| Clone propre | ⏳ | À faire avant le merge |
+| Clone propre | ✅ | Clone neuf de `9a038ab` : `dbt deps` + `dbt build` → PASS=44, WARN=1, ERROR=0, SKIP=0, identique au build n°2 |
+| Capture du lignage | ✅ | `docs/lineage.png` (vue graphe de `dbt docs serve`, Chrome headless 1600x1000) |
 
 ## Défauts trouvés
 
@@ -77,3 +78,21 @@ Les déduplications retirées restent protégées : les tests de grain bloquent 
 | `fct_daily_demand` | 365 512 |
 | `dim_product` | 42 858 |
 | `dim_date` | 1 826 |
+
+## Clone propre (2026-11-04)
+
+Le but : vérifier que la branche se construit sans rien de local (`dbt_packages`, `target`, `.user.yml`).
+
+- `gh repo clone lucasduthu/Group-3-Data-Eng-CLoud-Infra` dans un dossier temporaire neuf, puis `git checkout step5/dbt-project` (commit `9a038ab`).
+- Même image (`charlestng/dbt-bigquery:1.12.1`), mêmes identifiants (session gcloud montée en lecture seule, `DBT_USER=md`).
+- `dbt deps` : dbt_utils 1.4.1 installé depuis `package-lock.yml`, sans étape manuelle.
+
+| | Build n°2 (repo de travail) | Clone propre |
+|---|---|---|
+| PASS | 44 | 44 |
+| WARN | 1 (6 noms de produit NULL) | 1 (le même) |
+| ERROR | 0 | 0 |
+| SKIP | 0 | 0 |
+| Total | 45 | 45 |
+
+Puis `dbt docs generate` et `dbt docs serve --host 0.0.0.0 --port 8080` dans ce clone ; la capture du graphe est dans `docs/lineage.png`.
