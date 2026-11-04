@@ -30,6 +30,9 @@ models:
                 min_value: 1
       - name: country
         tests: [not_null]
+      - name: line_revenue
+        description: "qty * price_at_purchase. Never negative or NULL (assert_line_revenue_is_positive); 0 on the zero-price lines."
+        tests: [not_null]
       - name: is_zero_price_anomaly
         description: >
           TRUE when price_at_purchase is 0.00. On 2026-11-04 this is 30 lines on 5 products whose

@@ -87,8 +87,9 @@ flowchart LR
   stop the pipeline before any mart is rebuilt.
 - **Marts** repeat the grain tests and check the foreign keys of
   `fct_order_items` against `dim_product` and `dim_date`.
-- **Singular test** `assert_line_revenue_is_positive` checks that every line of
-  `fct_order_items` has a revenue above zero.
+- **Singular tests:** `assert_line_revenue_is_positive` (error) checks that no line of
+  `fct_order_items` has a negative or NULL revenue; `assert_no_zero_price_lines`
+  (warn) lists the lines sold at 0.00 at every build.
 
 Last `dbt build`: 45 nodes, PASS=44, WARN=1 (6 products without a name, severity
 `warn` on purpose), ERROR=0.
