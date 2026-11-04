@@ -1,0 +1,8 @@
+psycopg[binary]
+pandas
+pyarrow
+gcsfs
+google-cloud-storage
+confluent-kafka
+jsonschema
+rfc3339-validator
