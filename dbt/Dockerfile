@@ -4,6 +4,10 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     DBT_PROFILES_DIR=/usr/app
 
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends git \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN python -m pip install --no-cache-dir \
         dbt-core==1.12.5 \
         dbt-bigquery==1.12.1 \
