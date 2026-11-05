@@ -1,0 +1,13 @@
+uid=10001(ingest) gid=10001(ingest) groups=10001(ingest)
+No broken requirements found.
+total 36
+drwxr-xr-x 1 root root 4096 Nov  5 12:27 .
+drwxr-xr-x 1 root root 4096 Nov  5 13:46 ..
+-rw-r--r-- 1 root root 2472 Nov  3 23:03 clickstream.schema.json
+-rw-r--r-- 1 root root 6175 Nov  3 23:03 consume_clickstream.py
+-rw-r--r-- 1 root root 2733 Nov  3 23:03 extract_customer.py
+-rw-r--r-- 1 root root 5115 Nov  3 23:03 extract_orders.py
+-rw-r--r-- 1 root root 1074 Nov  5 12:20 requirements.txt
+Architecture=amd64 OS=linux User=ingest
+     10315  2026-11-05T13:38:12Z  gs://albert-de-msc2-26-g03-bronze/bronze/extract/orders/extract_date=2026-08-01/orders.parquet
+TOTAL: 1 objects, 10315 bytes (10.07kiB)

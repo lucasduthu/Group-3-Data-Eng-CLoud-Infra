@@ -1,0 +1,26 @@
+Name:      docker.io/emmaneum/g03-dbt:2026-11-05-1278d01
+MediaType: application/vnd.oci.image.index.v1+json
+Digest:    sha256:524caa56c3df542e8306681f607d76b9c9ebaa450147e0a34a665c7a48061c19
+           
+Manifests: 
+  Name:        docker.io/emmaneum/g03-dbt:2026-11-05-1278d01@sha256:930c5e02afdea037130be7f5c75656d8365234d7afa3d77a0d3516c6d5c3e046
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/amd64
+               
+  Name:        docker.io/emmaneum/g03-dbt:2026-11-05-1278d01@sha256:7861e23243319583081e38aacd1b6d2990c7344d76c5cfc955b2a89e141c1199
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/arm64
+               
+  Name:        docker.io/emmaneum/g03-dbt:2026-11-05-1278d01@sha256:808d5266b0b2299be06d460d16ff1f01ec9ed06e161a097596e0f9bd8984d4ef
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    vnd.docker.reference.type:   attestation-manifest
+    vnd.docker.reference.digest: sha256:930c5e02afdea037130be7f5c75656d8365234d7afa3d77a0d3516c6d5c3e046
+               
+  Name:        docker.io/emmaneum/g03-dbt:2026-11-05-1278d01@sha256:477d4e147b7708f2fe6625824176d2f80d536074d88ab2e641486634401f40ae
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    vnd.docker.reference.digest: sha256:7861e23243319583081e38aacd1b6d2990c7344d76c5cfc955b2a89e141c1199
+    vnd.docker.reference.type:   attestation-manifest

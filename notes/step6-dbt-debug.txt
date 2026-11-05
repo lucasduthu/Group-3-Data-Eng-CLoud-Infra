@@ -1,0 +1,42 @@
+[0m16:19:21  Running with dbt=1.12.5
+[0m16:19:21  dbt version: 1.12.5
+[0m16:19:21  python version: 3.12.12
+[0m16:19:21  python path: /usr/local/bin/python
+[0m16:19:21  os info: Linux-6.12.54-linuxkit-x86_64-with-glibc2.36
+[0m16:19:27  Using profiles dir at /usr/app
+[0m16:19:27  Using profiles.yml file at /usr/app/profiles.yml
+[0m16:19:27  Using dbt_project.yml file at /usr/app/dbt_project.yml
+[0m16:19:27  adapter type: bigquery
+[0m16:19:27  adapter version: 1.12.1
+[0m16:19:27  Configuration:
+[0m16:19:27    profiles.yml file [[32mOK found and valid[0m]
+[0m16:19:27    dbt_project.yml file [[32mOK found and valid[0m]
+[0m16:19:27  Required dependencies:
+[0m16:19:28   - git [[32mOK found[0m]
+
+[0m16:19:28  Connection:
+[0m16:19:28    method: oauth
+[0m16:19:28    database: data-engineering-i1
+[0m16:19:28    execution_project: data-engineering-i1
+[0m16:19:28    schema: g03_dbt_emma
+[0m16:19:28    location: europe-west1
+[0m16:19:28    priority: None
+[0m16:19:28    maximum_bytes_billed: 1000000000
+[0m16:19:28    reservation: None
+[0m16:19:28    impersonate_service_account: None
+[0m16:19:28    job_retry_deadline_seconds: None
+[0m16:19:28    job_retries: 1
+[0m16:19:28    job_creation_timeout_seconds: None
+[0m16:19:28    job_execution_timeout_seconds: None
+[0m16:19:28    job_link_info_level_log: False
+[0m16:19:28    timeout_seconds: None
+[0m16:19:28    client_id: None
+[0m16:19:28    token_uri: None
+[0m16:19:28    compute_region: None
+[0m16:19:28    dataproc_cluster_name: None
+[0m16:19:28    gcs_bucket: None
+[0m16:19:28    dataproc_batch: None
+[0m16:19:28  Registered adapter: bigquery=1.12.1
+[0m16:19:30    Connection test: [[32mOK connection ok[0m]
+
+[0m16:19:30  [32mAll checks passed![0m
