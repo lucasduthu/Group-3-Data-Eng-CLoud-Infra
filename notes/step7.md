@@ -84,10 +84,26 @@ Avec `airflow dags test`, le callback tourne dans le conteneur où on lance la c
 est dans la sortie de la commande, pas dans `docker compose logs airflow-worker` (où elle apparaît
 pour un run planifié ou de back-fill).
 
-**Reste à faire (humain)** : mettre l'URL du webhook Slack/Discord du groupe dans `~/de/l07/.env`
-(`ALERT_WEBHOOK_URL=…`), `docker compose up -d`, relancer le test ci-dessus, et faire une capture
-du message reçu par une personne nommée. Le code poste `{"text": …, "content": …}` (Slack lit
-`text`, Discord lit `content`).
+### Le message arrive dans Slack
+
+Webhook Slack du groupe dans `~/de/l07/.env` (`ALERT_WEBHOOK_URL`, jamais dans le repo), même test
+(tag cassé, 2026-08-02) :
+
+- **14:36Z, échec d'envoi.** L'`ALERT` est bien produite après 3 essais, mais le POST échoue :
+  `urllib.error.URLError: <urlopen error [Errno -2] Name or service not known>`. Au même moment, le
+  3e pull d'image renvoie `500 … dialing registry-1.docker.io:443` au lieu de `404` : coupure réseau
+  de la machine (partage de connexion iPhone, DNS `172.20.10.1`), pas un défaut du code. Leçon :
+  un webhook est un canal à part entière, qui peut tomber ; l'`ALERT` reste toujours dans le log.
+- **14:47Z, reçu.** Après vérification que le conteneur résout `hooks.slack.com`, le test est relancé
+  avec `retries` temporairement à 0 (le comportement à 3 essais est déjà prouvé deux fois plus haut) :
+  `ALERT :red_circle: marketplace_g03_daily.extract_orders a échoué pour 2026-08-02 après 1 essais`,
+  aucune erreur de callback, **message reçu dans Slack par Lucas Duthu-Paloumet**. Capture :
+  [`step7-alert-slack.png`](step7-alert-slack.png). DAG remis à l'identique juste après (`retries: 2`,
+  bon tag).
+
+Pour ce test, seule la base d'Airflow tournait (`docker compose up -d postgres` puis
+`docker compose run --rm --no-deps airflow-scheduler airflow dags test …`) : `dags test` exécute la
+tâche dans son propre processus, sans scheduler, worker ni API.
 
 ## 7.6 Quality gate et poison row : alarme, faux verrou, vrai verrou
 
@@ -148,8 +164,8 @@ run planifié et un run de back-fill sur la stage partagée, corrigée (une stag
 - [x] **DAG visible, run complet vert depuis le planning** : `scheduled__2026-11-06` (jour 2026-11-05)
   `success`, exécuté par le scheduler ; les 7 runs du back-fill aussi.
 - [x] **Deux runs du même jour → mêmes comptes** : 163 / 163 avant et après (§7.4).
-- [ ] **Alerte reçue par une personne nommée (capture)** : l'alerte part (ligne `ALERT` au dernier
-  essai, §7.5) ; il manque le webhook du groupe dans `.env` et la capture.
+- [x] **Alerte reçue par une personne nommée (capture)** : reçue dans Slack par Lucas le
+  2026-11-06 à 14:47Z (§7.5), capture `step7-alert-slack.png`.
 - [x] **Poison row : alarme puis verrou documentés** : §7.6, avec le faux verrou du guide et sa correction.
 - [x] **Back-fill : prédiction avant, comptes réels, écarts expliqués** : `step7-backfill.md`.
 
@@ -158,5 +174,5 @@ run planifié et un run de back-fill sur la stage partagée, corrigée (une stag
 | Qui | Quoi |
 |---|---|
 | Emma | Publier `emmaneum/g03-dbt:2026-11-06-cfed22c` (amd64 + arm64). Sans elle, le DAG ne tourne que sur la machine de Lucas. |
-| Lucas | `ALERT_WEBHOOK_URL` dans `~/de/l07/.env`, relancer le test du §7.5, capture. |
-| Lucas | **Au prochain démarrage d'Airflow**, mettre le DAG en pause d'abord (`airflow dags pause marketplace_g03_daily`) : un 2e back-fill (08-04 → 08-07, 4 runs en parallèle) a été interrompu et reprendrait aussitôt. Ses runs sont sans risque (idempotents) mais lourds. |
+| Lucas | Ajouter la capture Slack sous `notes/step7-alert-slack.png`. |
+| Lucas | Le DAG est **en pause** (depuis 14:24Z). Un 2e back-fill interrompu (08-04 → 08-07, 4 runs en parallèle) attend en `queued` et repartira au prochain `unpause` : sans risque (idempotent) mais lourd. |
