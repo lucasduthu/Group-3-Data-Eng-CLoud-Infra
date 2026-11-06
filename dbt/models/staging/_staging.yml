@@ -19,7 +19,8 @@ models:
       - name: p_id
         tests:
           - not_null
-          # Test en staging : au step 7, il bloque le pipeline AVANT que les marts soient construits.
+          # Test en staging : il bloque le pipeline AVANT que les marts soient construits, à condition que
+          # int_order_items dépende aussi de stg_product (depends_on dans int_order_items.sql, step 7).
           - relationships:
               arguments:
                 to: ref('stg_product')
