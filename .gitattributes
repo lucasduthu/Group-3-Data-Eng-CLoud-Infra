@@ -1,0 +1,3 @@
+
+# Preserve formatting in Step 6 terminal captures
+notes/step6-*.txt -whitespace

@@ -1,0 +1,300 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile:
+#1 transferring dockerfile: 496B 0.1s done
+#1 DONE 0.5s
+
+#2 [linux/arm64 internal] load metadata for docker.io/library/python:3.12.12-slim-bookworm
+#2 ...
+
+#3 [linux/amd64 internal] load metadata for docker.io/library/python:3.12.12-slim-bookworm
+#3 DONE 0.6s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 273B 0.0s done
+#4 DONE 0.2s
+
+#2 [linux/arm64 internal] load metadata for docker.io/library/python:3.12.12-slim-bookworm
+#2 ...
+
+#5 [auth] library/python:pull token for registry-1.docker.io
+#5 DONE 0.0s
+
+#2 [linux/arm64 internal] load metadata for docker.io/library/python:3.12.12-slim-bookworm
+#2 DONE 4.7s
+
+#6 [internal] load build context
+#6 transferring context: 278B 0.0s done
+#6 DONE 0.1s
+
+#7 [linux/amd64 1/5] FROM docker.io/library/python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c
+#7 resolve docker.io/library/python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c
+#7 resolve docker.io/library/python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c 0.7s done
+#7 DONE 0.7s
+
+#8 [linux/arm64 1/5] FROM docker.io/library/python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c
+#8 resolve docker.io/library/python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c 0.6s done
+#8 ...
+
+#9 [linux/amd64 2/5] WORKDIR /app
+#9 CACHED
+
+#10 [linux/amd64 3/5] COPY ingestion/requirements.txt ./
+#10 CACHED
+
+#11 [linux/amd64 4/5] RUN python -m pip install --no-cache-dir -r requirements.txt     && useradd --create-home --uid 10001 ingest
+#11 CACHED
+
+#12 [linux/amd64 5/5] COPY ingestion/extract_orders.py      ingestion/extract_customer.py      ingestion/consume_clickstream.py      ingestion/clickstream.schema.json ./
+#12 CACHED
+
+#8 [linux/arm64 1/5] FROM docker.io/library/python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c
+#8 sha256:7d7d63e37187049e51dd6c005cabc48e1f49168584d7ad8623bf2684df4dc095 0B / 13.60MB 0.2s
+#8 sha256:b00559a184b371583b8ee2b8b5705bb6f9f1d57171c482a160f674b1c5a631fc 250B / 250B 0.2s done
+#8 sha256:2a131c235be7a6739f95b0703a577583b0a0d8e6bf4eea8b271f3cb0b09adb18 0B / 3.35MB 0.2s
+#8 sha256:eb04ef52de3a23999fcda632f100324a4d1dbebd588b4df190c4a172bb88c603 0B / 28.12MB 0.2s
+#8 sha256:7d7d63e37187049e51dd6c005cabc48e1f49168584d7ad8623bf2684df4dc095 753.66kB / 13.60MB 1.0s
+#8 sha256:7d7d63e37187049e51dd6c005cabc48e1f49168584d7ad8623bf2684df4dc095 2.29MB / 13.60MB 1.5s
+#8 sha256:2a131c235be7a6739f95b0703a577583b0a0d8e6bf4eea8b271f3cb0b09adb18 2.10MB / 3.35MB 1.5s
+#8 sha256:2a131c235be7a6739f95b0703a577583b0a0d8e6bf4eea8b271f3cb0b09adb18 3.35MB / 3.35MB 1.7s done
+#8 sha256:7d7d63e37187049e51dd6c005cabc48e1f49168584d7ad8623bf2684df4dc095 4.19MB / 13.60MB 2.1s
+#8 sha256:eb04ef52de3a23999fcda632f100324a4d1dbebd588b4df190c4a172bb88c603 2.10MB / 28.12MB 1.8s
+#8 sha256:eb04ef52de3a23999fcda632f100324a4d1dbebd588b4df190c4a172bb88c603 4.19MB / 28.12MB 2.1s
+#8 sha256:7d7d63e37187049e51dd6c005cabc48e1f49168584d7ad8623bf2684df4dc095 5.24MB / 13.60MB 2.4s
+#8 sha256:7d7d63e37187049e51dd6c005cabc48e1f49168584d7ad8623bf2684df4dc095 6.00MB / 13.60MB 2.5s
+#8 sha256:7d7d63e37187049e51dd6c005cabc48e1f49168584d7ad8623bf2684df4dc095 7.34MB / 13.60MB 2.8s
+#8 sha256:7d7d63e37187049e51dd6c005cabc48e1f49168584d7ad8623bf2684df4dc095 9.89MB / 13.60MB 3.0s
+#8 sha256:eb04ef52de3a23999fcda632f100324a4d1dbebd588b4df190c4a172bb88c603 6.28MB / 28.12MB 2.7s
+#8 sha256:7d7d63e37187049e51dd6c005cabc48e1f49168584d7ad8623bf2684df4dc095 11.52MB / 13.60MB 3.1s
+#8 sha256:7d7d63e37187049e51dd6c005cabc48e1f49168584d7ad8623bf2684df4dc095 12.71MB / 13.60MB 3.3s
+#8 sha256:eb04ef52de3a23999fcda632f100324a4d1dbebd588b4df190c4a172bb88c603 9.39MB / 28.12MB 3.0s
+#8 sha256:7d7d63e37187049e51dd6c005cabc48e1f49168584d7ad8623bf2684df4dc095 13.60MB / 13.60MB 3.4s
+#8 sha256:7d7d63e37187049e51dd6c005cabc48e1f49168584d7ad8623bf2684df4dc095 13.60MB / 13.60MB 3.5s done
+#8 sha256:eb04ef52de3a23999fcda632f100324a4d1dbebd588b4df190c4a172bb88c603 11.53MB / 28.12MB 3.3s
+#8 sha256:eb04ef52de3a23999fcda632f100324a4d1dbebd588b4df190c4a172bb88c603 13.63MB / 28.12MB 3.7s
+#8 sha256:eb04ef52de3a23999fcda632f100324a4d1dbebd588b4df190c4a172bb88c603 15.73MB / 28.12MB 4.2s
+#8 sha256:eb04ef52de3a23999fcda632f100324a4d1dbebd588b4df190c4a172bb88c603 17.83MB / 28.12MB 4.9s
+#8 sha256:eb04ef52de3a23999fcda632f100324a4d1dbebd588b4df190c4a172bb88c603 19.92MB / 28.12MB 5.4s
+#8 sha256:eb04ef52de3a23999fcda632f100324a4d1dbebd588b4df190c4a172bb88c603 22.02MB / 28.12MB 5.7s
+#8 sha256:eb04ef52de3a23999fcda632f100324a4d1dbebd588b4df190c4a172bb88c603 24.12MB / 28.12MB 6.1s
+#8 sha256:eb04ef52de3a23999fcda632f100324a4d1dbebd588b4df190c4a172bb88c603 25.58MB / 28.12MB 6.4s
+#8 sha256:eb04ef52de3a23999fcda632f100324a4d1dbebd588b4df190c4a172bb88c603 27.26MB / 28.12MB 6.6s
+#8 sha256:eb04ef52de3a23999fcda632f100324a4d1dbebd588b4df190c4a172bb88c603 28.12MB / 28.12MB 6.8s done
+#8 extracting sha256:eb04ef52de3a23999fcda632f100324a4d1dbebd588b4df190c4a172bb88c603
+#8 extracting sha256:eb04ef52de3a23999fcda632f100324a4d1dbebd588b4df190c4a172bb88c603 11.0s done
+#8 extracting sha256:2a131c235be7a6739f95b0703a577583b0a0d8e6bf4eea8b271f3cb0b09adb18
+#8 extracting sha256:2a131c235be7a6739f95b0703a577583b0a0d8e6bf4eea8b271f3cb0b09adb18 0.7s done
+#8 DONE 21.5s
+
+#8 [linux/arm64 1/5] FROM docker.io/library/python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c
+#8 extracting sha256:7d7d63e37187049e51dd6c005cabc48e1f49168584d7ad8623bf2684df4dc095
+#8 extracting sha256:7d7d63e37187049e51dd6c005cabc48e1f49168584d7ad8623bf2684df4dc095 5.0s done
+#8 DONE 26.5s
+
+#8 [linux/arm64 1/5] FROM docker.io/library/python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c
+#8 extracting sha256:b00559a184b371583b8ee2b8b5705bb6f9f1d57171c482a160f674b1c5a631fc
+#8 extracting sha256:b00559a184b371583b8ee2b8b5705bb6f9f1d57171c482a160f674b1c5a631fc 0.3s done
+#8 DONE 26.7s
+
+#13 [linux/arm64 2/5] WORKDIR /app
+#13 DONE 1.2s
+
+#14 [linux/arm64 3/5] COPY ingestion/requirements.txt ./
+#14 DONE 0.1s
+
+#15 [linux/arm64 4/5] RUN python -m pip install --no-cache-dir -r requirements.txt     && useradd --create-home --uid 10001 ingest
+#15 60.82 Collecting aiohappyeyeballs==2.7.1 (from -r requirements.txt (line 1))
+#15 62.91   Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl.metadata (5.9 kB)
+#15 83.75 Collecting aiohttp==3.14.5 (from -r requirements.txt (line 2))
+#15 83.79   Downloading aiohttp-3.14.5-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (8.3 kB)
+#15 84.05 Collecting aiosignal==1.4.0 (from -r requirements.txt (line 3))
+#15 84.14   Downloading aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+#15 85.47 Collecting attrs==26.1.0 (from -r requirements.txt (line 4))
+#15 85.52   Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+#15 86.67 Collecting certifi==2026.10.23 (from -r requirements.txt (line 5))
+#15 86.75   Downloading certifi-2026.10.23-py3-none-any.whl.metadata (2.5 kB)
+#15 89.51 Collecting cffi==2.1.1 (from -r requirements.txt (line 6))
+#15 89.60   Downloading cffi-2.1.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl.metadata (2.5 kB)
+#15 93.16 Collecting charset-normalizer==3.5.2 (from -r requirements.txt (line 7))
+#15 93.23   Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (46 kB)
+#15 95.89 Collecting confluent-kafka==2.16.1 (from -r requirements.txt (line 8))
+#15 95.94   Downloading confluent_kafka-2.16.1-cp312-cp312-manylinux_2_28_aarch64.whl.metadata (38 kB)
+#15 108.4 Collecting cryptography==50.0.2 (from -r requirements.txt (line 9))
+#15 108.5   Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_aarch64.whl.metadata (4.4 kB)
+#15 108.9 Collecting decorator==5.3.1 (from -r requirements.txt (line 10))
+#15 108.9   Downloading decorator-5.3.1-py3-none-any.whl.metadata (3.9 kB)
+#15 112.2 Collecting frozenlist==1.8.0 (from -r requirements.txt (line 11))
+#15 112.2   Downloading frozenlist-1.8.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (20 kB)
+#15 112.9 Collecting fsspec==2026.9.0 (from -r requirements.txt (line 12))
+#15 113.0   Downloading fsspec-2026.9.0-py3-none-any.whl.metadata (10 kB)
+#15 115.4 Collecting gcsfs==2026.10.1 (from -r requirements.txt (line 13))
+#15 115.5   Downloading gcsfs-2026.10.1-py3-none-any.whl.metadata (4.6 kB)
+#15 116.8 Collecting google-api-core==2.43.2 (from -r requirements.txt (line 14))
+#15 116.9   Downloading google_api_core-2.43.2-py3-none-any.whl.metadata (3.2 kB)
+#15 118.4 Collecting google-auth==2.62.1 (from -r requirements.txt (line 15))
+#15 118.4   Downloading google_auth-2.62.1-py3-none-any.whl.metadata (6.0 kB)
+#15 119.1 Collecting google-auth-oauthlib==1.5.0 (from -r requirements.txt (line 16))
+#15 119.2   Downloading google_auth_oauthlib-1.5.0-py3-none-any.whl.metadata (2.6 kB)
+#15 119.8 Collecting google-cloud-core==2.8.0 (from -r requirements.txt (line 17))
+#15 119.9   Downloading google_cloud_core-2.8.0-py3-none-any.whl.metadata (2.9 kB)
+#15 120.6 Collecting google-cloud-storage==3.17.1 (from -r requirements.txt (line 18))
+#15 120.7   Downloading google_cloud_storage-3.17.1-py3-none-any.whl.metadata (14 kB)
+#15 121.0 Collecting google-cloud-storage-control==1.17.0 (from -r requirements.txt (line 19))
+#15 121.1   Downloading google_cloud_storage_control-1.17.0-py3-none-any.whl.metadata (9.8 kB)
+#15 122.2 Collecting google-crc32c==1.9.0 (from -r requirements.txt (line 20))
+#15 122.3   Downloading google_crc32c-1.9.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl.metadata (2.2 kB)
+#15 122.8 Collecting google-resumable-media==2.11.0 (from -r requirements.txt (line 21))
+#15 122.8   Downloading google_resumable_media-2.11.0-py3-none-any.whl.metadata (2.3 kB)
+#15 123.5 Collecting googleapis-common-protos==1.76.0 (from -r requirements.txt (line 22))
+#15 123.6   Downloading googleapis_common_protos-1.76.0-py3-none-any.whl.metadata (8.5 kB)
+#15 124.1 Collecting grpc-google-iam-v1==0.14.6 (from -r requirements.txt (line 23))
+#15 124.2   Downloading grpc_google_iam_v1-0.14.6-py3-none-any.whl.metadata (8.9 kB)
+#15 141.7 Collecting grpcio==1.85.1 (from -r requirements.txt (line 24))
+#15 141.8   Downloading grpcio-1.85.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl.metadata (3.8 kB)
+#15 143.3 Collecting grpcio-status==1.85.1 (from -r requirements.txt (line 25))
+#15 143.4   Downloading grpcio_status-1.85.1-py3-none-any.whl.metadata (1.3 kB)
+#15 143.6 Collecting idna==3.20 (from -r requirements.txt (line 26))
+#15 143.6   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+#15 144.3 Collecting jsonschema==4.26.0 (from -r requirements.txt (line 27))
+#15 144.3   Downloading jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+#15 144.7 Collecting jsonschema-specifications==2025.9.1 (from -r requirements.txt (line 28))
+#15 144.7   Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+#15 154.0 Collecting multidict==7.2.1 (from -r requirements.txt (line 29))
+#15 154.0   Downloading multidict-7.2.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (6.1 kB)
+#15 162.4 Collecting numpy==2.5.4 (from -r requirements.txt (line 30))
+#15 162.5   Downloading numpy-2.5.4-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl.metadata (6.6 kB)
+#15 162.9 Collecting oauthlib==4.0.1 (from -r requirements.txt (line 31))
+#15 162.9   Downloading oauthlib-4.0.1-py3-none-any.whl.metadata (8.6 kB)
+#15 167.7 Collecting opentelemetry-api==1.45.2 (from -r requirements.txt (line 32))
+#15 168.0   Downloading opentelemetry_api-1.45.2-py3-none-any.whl.metadata (1.4 kB)
+#15 180.6 Collecting pandas==3.1.1 (from -r requirements.txt (line 33))
+#15 180.7   Downloading pandas-3.1.1-cp312-cp312-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl.metadata (16 kB)
+#15 183.3 Collecting propcache==0.5.4 (from -r requirements.txt (line 34))
+#15 183.4   Downloading propcache-0.5.4-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (25 kB)
+#15 184.1 Collecting proto-plus==1.29.0 (from -r requirements.txt (line 35))
+#15 184.2   Downloading proto_plus-1.29.0-py3-none-any.whl.metadata (2.2 kB)
+#15 189.8 Collecting protobuf==7.36.2 (from -r requirements.txt (line 36))
+#15 189.9   Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_aarch64.whl.metadata (595 bytes)
+#15 190.3 Collecting psycopg==3.3.8 (from -r requirements.txt (line 37))
+#15 190.3   Downloading psycopg-3.3.8-py3-none-any.whl.metadata (4.4 kB)
+#15 195.0 Collecting psycopg-binary==3.3.8 (from -r requirements.txt (line 38))
+#15 195.1   Downloading psycopg_binary-3.3.8-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl.metadata (2.7 kB)
+#15 197.6 Collecting pyarrow==26.0.1 (from -r requirements.txt (line 39))
+#15 197.6   Downloading pyarrow-26.0.1-cp312-cp312-manylinux_2_28_aarch64.whl.metadata (3.0 kB)
+#15 198.3 Collecting pyasn1==0.6.5 (from -r requirements.txt (line 40))
+#15 198.4   Downloading pyasn1-0.6.5-py3-none-any.whl.metadata (8.4 kB)
+#15 198.7 Collecting pyasn1_modules==0.4.2 (from -r requirements.txt (line 41))
+#15 198.8   Downloading pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+#15 199.0 Collecting pycparser==3.12 (from -r requirements.txt (line 42))
+#15 199.0   Downloading pycparser-3.12-py3-none-any.whl.metadata (9.7 kB)
+#15 199.3 Collecting python-dateutil==4.0.0 (from -r requirements.txt (line 43))
+#15 199.5   Downloading python_dateutil-4.0.0-py3-none-any.whl.metadata (7.3 kB)
+#15 200.2 Collecting referencing==0.37.0 (from -r requirements.txt (line 44))
+#15 200.2   Downloading referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+#15 201.1 Collecting requests==2.34.2 (from -r requirements.txt (line 45))
+#15 201.2   Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+#15 201.4 Collecting requests-oauthlib==2.0.0 (from -r requirements.txt (line 46))
+#15 201.4   Downloading requests_oauthlib-2.0.0-py2.py3-none-any.whl.metadata (11 kB)
+#15 201.5 Collecting rfc3339-validator==0.1.4 (from -r requirements.txt (line 47))
+#15 201.6   Downloading rfc3339_validator-0.1.4-py2.py3-none-any.whl.metadata (1.5 kB)
+#15 210.8 Collecting rpds-py==2026.9.1 (from -r requirements.txt (line 48))
+#15 210.9   Downloading rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (4.1 kB)
+#15 211.2 Collecting six==1.17.0 (from -r requirements.txt (line 49))
+#15 211.2   Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+#15 211.5 Collecting typing_extensions==4.16.0 (from -r requirements.txt (line 50))
+#15 211.6   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+#15 212.0 Collecting tzdata==2026.6 (from -r requirements.txt (line 51))
+#15 212.1   Downloading tzdata-2026.6-py2.py3-none-any.whl.metadata (1.4 kB)
+#15 212.8 Collecting urllib3==2.8.0 (from -r requirements.txt (line 52))
+#15 212.9   Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+#15 228.3 Collecting yarl==1.25.1 (from -r requirements.txt (line 53))
+#15 228.4   Downloading yarl-1.25.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (111 kB)
+#15 251.2 Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
+#15 251.2 Downloading aiohttp-3.14.5-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (1.9 MB)
+#15 251.9    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 24.6 MB/s eta 0:00:00
+#15 252.0 Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+#15 252.1 Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+#15 252.1 Downloading certifi-2026.10.23-py3-none-any.whl (135 kB)
+#15 252.4 Downloading cffi-2.1.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl (222 kB)
+#15 252.6 Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (246 kB)
+#15 252.7 Downloading confluent_kafka-2.16.1-cp312-cp312-manylinux_2_28_aarch64.whl (5.2 MB)
+#15 253.1    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.2/5.2 MB 17.4 MB/s eta 0:00:00
+#15 253.2 Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_aarch64.whl (4.7 MB)
+#15 253.5    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.7/4.7 MB 16.3 MB/s eta 0:00:00
+#15 253.6 Downloading decorator-5.3.1-py3-none-any.whl (10 kB)
+#15 253.6 Downloading frozenlist-1.8.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (243 kB)
+#15 253.7 Downloading fsspec-2026.9.0-py3-none-any.whl (221 kB)
+#15 253.7 Downloading gcsfs-2026.10.1-py3-none-any.whl (88 kB)
+#15 253.8 Downloading google_api_core-2.43.2-py3-none-any.whl (224 kB)
+#15 253.8 Downloading google_auth-2.62.1-py3-none-any.whl (267 kB)
+#15 253.9 Downloading google_auth_oauthlib-1.5.0-py3-none-any.whl (20 kB)
+#15 254.0 Downloading google_cloud_core-2.8.0-py3-none-any.whl (31 kB)
+#15 254.0 Downloading google_cloud_storage-3.17.1-py3-none-any.whl (345 kB)
+#15 254.1 Downloading google_cloud_storage_control-1.17.0-py3-none-any.whl (115 kB)
+#15 254.2 Downloading google_crc32c-1.9.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl (37 kB)
+#15 254.2 Downloading google_resumable_media-2.11.0-py3-none-any.whl (81 kB)
+#15 254.3 Downloading googleapis_common_protos-1.76.0-py3-none-any.whl (307 kB)
+#15 254.4 Downloading grpc_google_iam_v1-0.14.6-py3-none-any.whl (33 kB)
+#15 254.4 Downloading grpcio-1.85.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl (7.2 MB)
+#15 256.1    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.2/7.2 MB 4.6 MB/s eta 0:00:00
+#15 256.4 Downloading grpcio_status-1.85.1-py3-none-any.whl (14 kB)
+#15 256.5 Downloading idna-3.20-py3-none-any.whl (69 kB)
+#15 256.6 Downloading jsonschema-4.26.0-py3-none-any.whl (90 kB)
+#15 256.7 Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+#15 256.8 Downloading multidict-7.2.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (506 kB)
+#15 257.0 Downloading numpy-2.5.4-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl (15.7 MB)
+#15 260.7    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 15.7/15.7 MB 4.3 MB/s eta 0:00:00
+#15 260.8 Downloading oauthlib-4.0.1-py3-none-any.whl (161 kB)
+#15 261.0 Downloading opentelemetry_api-1.45.2-py3-none-any.whl (60 kB)
+#15 261.1 Downloading pandas-3.1.1-cp312-cp312-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl (11.5 MB)
+#15 262.1    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.5/11.5 MB 11.7 MB/s eta 0:00:00
+#15 262.2 Downloading propcache-0.5.4-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (251 kB)
+#15 262.4 Downloading proto_plus-1.29.0-py3-none-any.whl (50 kB)
+#15 262.5 Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_aarch64.whl (344 kB)
+#15 262.6 Downloading psycopg-3.3.8-py3-none-any.whl (216 kB)
+#15 262.7 Downloading psycopg_binary-3.3.8-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl (6.8 MB)
+#15 263.6    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.8/6.8 MB 9.2 MB/s eta 0:00:00
+#15 263.6 Downloading pyarrow-26.0.1-cp312-cp312-manylinux_2_28_aarch64.whl (51.8 MB)
+#15 271.0    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 51.8/51.8 MB 7.2 MB/s eta 0:00:00
+#15 271.2 Downloading pyasn1-0.6.5-py3-none-any.whl (84 kB)
+#15 271.6 Downloading pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+#15 271.9 Downloading pycparser-3.12-py3-none-any.whl (62 kB)
+#15 272.1 Downloading python_dateutil-4.0.0-py3-none-any.whl (92 kB)
+#15 272.4 Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+#15 272.5 Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+#15 272.5 Downloading requests_oauthlib-2.0.0-py2.py3-none-any.whl (24 kB)
+#15 272.7 Downloading rfc3339_validator-0.1.4-py2.py3-none-any.whl (3.5 kB)
+#15 272.7 Downloading rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (373 kB)
+#15 272.8 Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+#15 273.0 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+#15 273.1 Downloading tzdata-2026.6-py2.py3-none-any.whl (348 kB)
+#15 273.3 Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+#15 273.4 Downloading yarl-1.25.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (115 kB)
+#15 306.5 Installing collected packages: urllib3, tzdata, typing_extensions, six, rpds-py, pycparser, pyasn1, pyarrow, psycopg-binary, protobuf, propcache, oauthlib, numpy, multidict, idna, google-crc32c, fsspec, frozenlist, decorator, confluent-kafka, charset-normalizer, certifi, attrs, aiohappyeyeballs, yarl, rfc3339-validator, requests, referencing, python-dateutil, pyasn1_modules, psycopg, proto-plus, opentelemetry-api, grpcio, googleapis-common-protos, google-resumable-media, cffi, aiosignal, requests-oauthlib, pandas, jsonschema-specifications, grpcio-status, cryptography, aiohttp, jsonschema, grpc-google-iam-v1, google-auth, google-auth-oauthlib, google-api-core, google-cloud-core, google-cloud-storage-control, google-cloud-storage, gcsfs
+#15 732.0 Successfully installed aiohappyeyeballs-2.7.1 aiohttp-3.14.5 aiosignal-1.4.0 attrs-26.1.0 certifi-2026.10.23 cffi-2.1.1 charset-normalizer-3.5.2 confluent-kafka-2.16.1 cryptography-50.0.2 decorator-5.3.1 frozenlist-1.8.0 fsspec-2026.9.0 gcsfs-2026.10.1 google-api-core-2.43.2 google-auth-2.62.1 google-auth-oauthlib-1.5.0 google-cloud-core-2.8.0 google-cloud-storage-3.17.1 google-cloud-storage-control-1.17.0 google-crc32c-1.9.0 google-resumable-media-2.11.0 googleapis-common-protos-1.76.0 grpc-google-iam-v1-0.14.6 grpcio-1.85.1 grpcio-status-1.85.1 idna-3.20 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 multidict-7.2.1 numpy-2.5.4 oauthlib-4.0.1 opentelemetry-api-1.45.2 pandas-3.1.1 propcache-0.5.4 proto-plus-1.29.0 protobuf-7.36.2 psycopg-3.3.8 psycopg-binary-3.3.8 pyarrow-26.0.1 pyasn1-0.6.5 pyasn1_modules-0.4.2 pycparser-3.12 python-dateutil-4.0.0 referencing-0.37.0 requests-2.34.2 requests-oauthlib-2.0.0 rfc3339-validator-0.1.4 rpds-py-2026.9.1 six-1.17.0 typing_extensions-4.16.0 tzdata-2026.6 urllib3-2.8.0 yarl-1.25.1
+#15 732.3 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#15 741.0 
+#15 741.0 [notice] A new release of pip is available: 25.0.1 -> 26.3
+#15 741.0 [notice] To update, run: pip install --upgrade pip
+#15 DONE 745.6s
+
+#16 [linux/arm64 5/5] COPY ingestion/extract_orders.py      ingestion/extract_customer.py      ingestion/consume_clickstream.py      ingestion/clickstream.schema.json ./
+#16 DONE 0.4s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 50.4s done
+#17 exporting manifest sha256:cd40f27ecba7185073d2bd916ba4fd39550932b36e18ceb787b6ae3df595d960 0.0s done
+#17 exporting config sha256:0af99a08f2b39dc0c9d75c1085715d61b27584d1d3c7c130c95bd05f2a29fed4 0.0s done
+#17 exporting attestation manifest sha256:ff7a2975f49c370d49ca3061470d56ce65b5c36b01264fc23aee442b061b924d
+#17 exporting attestation manifest sha256:ff7a2975f49c370d49ca3061470d56ce65b5c36b01264fc23aee442b061b924d 0.2s done
+#17 exporting manifest sha256:a4da2ceb16c65251b01bc356407615b989c8866b22e0f99c4263606d3c05a70a 0.1s done
+#17 exporting config sha256:87f08aabddab793b78d866743baa63aaf1e057c8c548638306b1b9ad0c9a6c6b 0.0s done
+#17 exporting attestation manifest sha256:d3748013d4f46a550a8d747f510f01a22d9032864f0d73d2f449ed5a451d0163
+#17 exporting attestation manifest sha256:d3748013d4f46a550a8d747f510f01a22d9032864f0d73d2f449ed5a451d0163 0.1s done
+#17 exporting manifest list sha256:8d8d2e8f9b2f2bd97012768a43a5267f28ff4572337e809c806294ac4d9b1a7c 0.0s done
+#17 naming to docker.io/emmaneum/g03-ingest:2026-11-05-d888406
+#17 naming to docker.io/emmaneum/g03-ingest:2026-11-05-d888406 done
+#17 unpacking to docker.io/emmaneum/g03-ingest:2026-11-05-d888406 0.1s done
+#17 DONE 51.5s
