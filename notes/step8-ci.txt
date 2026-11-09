@@ -1,0 +1,32 @@
+# CI terraform (.github/workflows/terraform.yml), 2026-11-09
+
+$ gh pr checks 8   # step8/terraform -> main
+check	pass	14s	https://github.com/lucasduthu/Group-3-Data-Eng-CLoud-Infra/actions/runs/42641431873/job/129243254956	
+
+$ gh run view 42641431873 --json jobs --jq ".jobs[0].steps[] | ..."
+success	Set up job
+success	Run actions/checkout@v4
+success	Run hashicorp/setup-terraform@v3
+success	Run terraform fmt -check -recursive
+success	Run terraform init -backend=false
+success	Run terraform validate
+success	Post Run actions/checkout@v4
+success	Complete job
+
+$ gh pr checks 9   # step8/fmt-check-demo -> step8/terraform (mal formatée exprès)
+check	fail	9s	https://github.com/lucasduthu/Group-3-Data-Eng-CLoud-Infra/actions/runs/42641466465/job/129243377096	
+
+$ gh run view 42641466465 --json jobs --jq ".jobs[0].steps[] | ..."
+success	Set up job
+success	Run actions/checkout@v4
+success	Run hashicorp/setup-terraform@v3
+failure	Run terraform fmt -check -recursive
+skipped	Run terraform init -backend=false
+skipped	Run terraform validate
+success	Post Run actions/checkout@v4
+success	Complete job
+
+$ gh run view 42641466465 --log-failed   # extrait
+variables.tf
+##[error]Terraform exited with code 3.
+##[error]Process completed with exit code 1.

@@ -80,7 +80,16 @@ génération (versioning). Le `.terraform.lock.hcl` contient les hashes `h1:` de
 `.github/workflows/terraform.yml` : `fmt -check`, `init -backend=false`, `validate` sur toute PR qui
 touche `infra/**`. Aucun secret nécessaire.
 
-CI_SECTION
+Résultats ([`step8-ci.txt`](step8-ci.txt)) :
+
+| PR | Contenu | `fmt -check` | `init -backend=false` | `validate` |
+|---|---|---|---|---|
+| [#8](https://github.com/lucasduthu/Group-3-Data-Eng-CLoud-Infra/pull/8) `step8/terraform` → `main` | ce step | ✅ | ✅ | ✅ |
+| [#9](https://github.com/lucasduthu/Group-3-Data-Eng-CLoud-Infra/pull/9) `step8/fmt-check-demo` → `step8/terraform` | `default="europe-west1"`, mal formaté exprès | ❌ `variables.tf`, `Terraform exited with code 3` | sauté | sauté |
+
+La PR #9 est fermée sans merge. GitHub ajoute deux avertissements sans effet sur le résultat :
+`actions/checkout@v4` et `setup-terraform@v3` ciblent Node 20, forcé en Node 24, et `ubuntu-latest`
+migre vers Ubuntu 26.
 
 ## 8.7 Drift provoqué, détecté, tranché
 
