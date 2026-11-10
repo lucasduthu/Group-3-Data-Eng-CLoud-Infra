@@ -1,0 +1,56 @@
+$ terraform plan -out=overwrite.tfplan   # drift-test retiré de main.tf
+google_storage_bucket.bronze: Refreshing state... [id=albert-de-msc2-26-g03-bronze]
+google_bigquery_dataset.analytics: Refreshing state... [id=projects/data-engineering-i1/datasets/g03_analytics]
+google_bigquery_dataset.warehouse: Refreshing state... [id=projects/data-engineering-i1/datasets/g03_warehouse]
+google_bigquery_dataset.bronze: Refreshing state... [id=projects/data-engineering-i1/datasets/g03_bronze]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # google_storage_bucket.bronze will be updated in-place
+  ~ resource "google_storage_bucket" "bronze" {
+      ~ effective_labels            = {
+          - "drift-test" = "mathilde" -> null
+        }
+        id                          = "albert-de-msc2-26-g03-bronze"
+      ~ labels                      = {
+          - "drift-test" = "mathilde" -> null
+        }
+        name                        = "albert-de-msc2-26-g03-bronze"
+      ~ terraform_labels            = {
+          - "drift-test" = "mathilde" -> null
+        }
+        # (15 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+
+─────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to:
+/private/tmp/claude-501/-Volumes-Lucas-Duthu-Paloumet-Data-eng-project-Group-3-Data-Eng-CLoud-Infra/210bdf53-a124-4248-ac61-52bbb0f1346f/scratchpad/overwrite.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "/private/tmp/claude-501/-Volumes-Lucas-Duthu-Paloumet-Data-eng-project-Group-3-Data-Eng-CLoud-Infra/210bdf53-a124-4248-ac61-52bbb0f1346f/scratchpad/overwrite.tfplan"
+
+$ terraform apply overwrite.tfplan
+google_storage_bucket.bronze: Modifying... [id=albert-de-msc2-26-g03-bronze]
+google_storage_bucket.bronze: Modifications complete after 1s [id=albert-de-msc2-26-g03-bronze]
+
+Apply complete! Resources: 0 added, 1 changed, 0 destroyed.
+
+$ terraform plan
+google_bigquery_dataset.analytics: Refreshing state... [id=projects/data-engineering-i1/datasets/g03_analytics]
+google_storage_bucket.bronze: Refreshing state... [id=albert-de-msc2-26-g03-bronze]
+google_bigquery_dataset.bronze: Refreshing state... [id=projects/data-engineering-i1/datasets/g03_bronze]
+google_bigquery_dataset.warehouse: Refreshing state... [id=projects/data-engineering-i1/datasets/g03_warehouse]
+
+No changes. Your infrastructure matches the configuration.
+
+Terraform has compared your real infrastructure against your configuration
+and found no differences, so no changes are needed.

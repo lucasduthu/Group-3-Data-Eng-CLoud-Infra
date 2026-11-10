@@ -1,0 +1,21 @@
+name: terraform
+
+on:
+  pull_request:
+    paths:
+      - "infra/**"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra/terraform
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.16.4"
+      - run: terraform fmt -check -recursive
+      - run: terraform init -backend=false # pas d'accès au bucket de state : aucun secret nécessaire
+      - run: terraform validate

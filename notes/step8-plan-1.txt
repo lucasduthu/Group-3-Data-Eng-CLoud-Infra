@@ -1,0 +1,335 @@
+google_bigquery_dataset.bronze: Preparing import... [id=projects/data-engineering-i1/datasets/g03_bronze]
+google_bigquery_dataset.warehouse: Preparing import... [id=projects/data-engineering-i1/datasets/g03_warehouse]
+google_storage_bucket.bronze: Preparing import... [id=albert-de-msc2-26-g03-bronze]
+google_bigquery_dataset.analytics: Preparing import... [id=projects/data-engineering-i1/datasets/g03_analytics]
+google_bigquery_dataset.warehouse: Refreshing state... [id=projects/data-engineering-i1/datasets/g03_warehouse]
+google_storage_bucket.bronze: Refreshing state... [id=albert-de-msc2-26-g03-bronze]
+google_bigquery_dataset.bronze: Refreshing state... [id=projects/data-engineering-i1/datasets/g03_bronze]
+google_bigquery_dataset.analytics: Refreshing state... [id=projects/data-engineering-i1/datasets/g03_analytics]
+
+Terraform will perform the following actions:
+
+  # google_bigquery_dataset.analytics will be imported
+    resource "google_bigquery_dataset" "analytics" {
+        creation_time                   = 1793961977933
+        dataset_id                      = "g03_analytics"
+        default_collation               = null
+        default_partition_expiration_ms = 0
+        default_rounding_mode           = null
+        default_table_expiration_ms     = 0
+        delete_contents_on_destroy      = false
+        deletion_policy                 = "DELETE"
+        description                     = null
+        effective_labels                = {}
+        etag                            = "dW+O0KV0hHfLSYvSKSRu5A=="
+        friendly_name                   = null
+        id                              = "projects/data-engineering-i1/datasets/g03_analytics"
+        is_case_insensitive             = false
+        labels                          = {}
+        last_modified_time              = 1793961977933
+        location                        = "europe-west1"
+        max_time_travel_hours           = "168"
+        project                         = "data-engineering-i1"
+        resource_tags                   = {}
+        self_link                       = "https://bigquery.googleapis.com/bigquery/v2/projects/data-engineering-i1/datasets/g03_analytics"
+        storage_billing_model           = null
+        terraform_labels                = {}
+
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "OWNER"
+            special_group  = null
+            user_by_email  = "lduthu@albertschool.com"
+        }
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "OWNER"
+            special_group  = "projectOwners"
+            user_by_email  = null
+        }
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "READER"
+            special_group  = "projectReaders"
+            user_by_email  = null
+        }
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "WRITER"
+            special_group  = "projectWriters"
+            user_by_email  = null
+        }
+    }
+
+  # google_bigquery_dataset.bronze will be imported
+    resource "google_bigquery_dataset" "bronze" {
+        creation_time                   = 1793720470124
+        dataset_id                      = "g03_bronze"
+        default_collation               = null
+        default_partition_expiration_ms = 0
+        default_rounding_mode           = null
+        default_table_expiration_ms     = 0
+        delete_contents_on_destroy      = false
+        deletion_policy                 = "DELETE"
+        description                     = null
+        effective_labels                = {}
+        etag                            = "LPAPihb6VQGGfQMsoWlQDg=="
+        friendly_name                   = null
+        id                              = "projects/data-engineering-i1/datasets/g03_bronze"
+        is_case_insensitive             = false
+        labels                          = {}
+        last_modified_time              = 1793728465643
+        location                        = "europe-west1"
+        max_time_travel_hours           = "168"
+        project                         = "data-engineering-i1"
+        resource_tags                   = {}
+        self_link                       = "https://bigquery.googleapis.com/bigquery/v2/projects/data-engineering-i1/datasets/g03_bronze"
+        storage_billing_model           = null
+        terraform_labels                = {}
+
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "OWNER"
+            special_group  = null
+            user_by_email  = "loldakowski@albertschool.com"
+        }
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "OWNER"
+            special_group  = "projectOwners"
+            user_by_email  = null
+        }
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "READER"
+            special_group  = "projectReaders"
+            user_by_email  = null
+        }
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "WRITER"
+            special_group  = null
+            user_by_email  = "eneumayer@albertschool.com"
+        }
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "WRITER"
+            special_group  = null
+            user_by_email  = "lduthu@albertschool.com"
+        }
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "WRITER"
+            special_group  = null
+            user_by_email  = "mmaudet@albertschool.com"
+        }
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "WRITER"
+            special_group  = "projectWriters"
+            user_by_email  = null
+        }
+    }
+
+  # google_bigquery_dataset.warehouse will be imported
+    resource "google_bigquery_dataset" "warehouse" {
+        creation_time                   = 1793731904235
+        dataset_id                      = "g03_warehouse"
+        default_collation               = null
+        default_partition_expiration_ms = 0
+        default_rounding_mode           = null
+        default_table_expiration_ms     = 0
+        delete_contents_on_destroy      = false
+        deletion_policy                 = "DELETE"
+        description                     = null
+        effective_labels                = {}
+        etag                            = "rmm3EIpU7o5IKzmMFrNKjg=="
+        friendly_name                   = null
+        id                              = "projects/data-engineering-i1/datasets/g03_warehouse"
+        is_case_insensitive             = false
+        labels                          = {}
+        last_modified_time              = 1793788504761
+        location                        = "europe-west1"
+        max_time_travel_hours           = "168"
+        project                         = "data-engineering-i1"
+        resource_tags                   = {}
+        self_link                       = "https://bigquery.googleapis.com/bigquery/v2/projects/data-engineering-i1/datasets/g03_warehouse"
+        storage_billing_model           = null
+        terraform_labels                = {}
+
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "OWNER"
+            special_group  = null
+            user_by_email  = "eneumayer@albertschool.com"
+        }
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "OWNER"
+            special_group  = "projectOwners"
+            user_by_email  = null
+        }
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "READER"
+            special_group  = "projectReaders"
+            user_by_email  = null
+        }
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "WRITER"
+            special_group  = null
+            user_by_email  = "lduthu@albertschool.com"
+        }
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "WRITER"
+            special_group  = null
+            user_by_email  = "loldakowski@albertschool.com"
+        }
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "WRITER"
+            special_group  = null
+            user_by_email  = "mmaudet@albertschool.com"
+        }
+        access {
+            domain         = null
+            group_by_email = null
+            iam_member     = null
+            role           = "WRITER"
+            special_group  = "projectWriters"
+            user_by_email  = null
+        }
+    }
+
+  # google_storage_bucket.bronze will be imported
+    resource "google_storage_bucket" "bronze" {
+        default_event_based_hold    = false
+        deletion_policy             = "DELETE"
+        effective_labels            = {}
+        enable_object_retention     = false
+        force_destroy               = false
+        id                          = "albert-de-msc2-26-g03-bronze"
+        labels                      = {}
+        location                    = "EUROPE-WEST1"
+        name                        = "albert-de-msc2-26-g03-bronze"
+        project                     = "data-engineering-i1"
+        project_number              = 671557693556
+        public_access_prevention    = "enforced"
+        requester_pays              = false
+        self_link                   = "https://www.googleapis.com/storage/v1/b/albert-de-msc2-26-g03-bronze"
+        storage_class               = "STANDARD"
+        terraform_labels            = {}
+        time_created                = "2026-11-03T15:21:09.415Z"
+        uniform_bucket_level_access = true
+        updated                     = "2026-11-03T17:52:45.562Z"
+        url                         = "gs://albert-de-msc2-26-g03-bronze"
+
+        hierarchical_namespace {
+            enabled = false
+        }
+
+        lifecycle_rule {
+            action {
+                storage_class = "NEARLINE"
+                type          = "SetStorageClass"
+            }
+            condition {
+                age                                     = 90
+                created_before                          = null
+                custom_time_before                      = null
+                days_since_custom_time                  = 0
+                days_since_noncurrent_time              = 0
+                matches_prefix                          = [
+                    "bronze/export/",
+                ]
+                matches_storage_class                   = [
+                    "STANDARD",
+                ]
+                matches_suffix                          = []
+                noncurrent_time_before                  = null
+                num_newer_versions                      = 0
+                send_age_if_zero                        = false
+                send_days_since_custom_time_if_zero     = false
+                send_days_since_noncurrent_time_if_zero = false
+                send_num_newer_versions_if_zero         = false
+                size_above_bytes                        = 0
+                size_below_bytes                        = 0
+                with_state                              = "ANY"
+            }
+        }
+        lifecycle_rule {
+            action {
+                storage_class = null
+                type          = "Delete"
+            }
+            condition {
+                age                                     = 90
+                created_before                          = null
+                custom_time_before                      = null
+                days_since_custom_time                  = 0
+                days_since_noncurrent_time              = 0
+                matches_prefix                          = [
+                    "bronze/_dlq/",
+                ]
+                matches_storage_class                   = []
+                matches_suffix                          = []
+                noncurrent_time_before                  = null
+                num_newer_versions                      = 0
+                send_age_if_zero                        = false
+                send_days_since_custom_time_if_zero     = false
+                send_days_since_noncurrent_time_if_zero = false
+                send_num_newer_versions_if_zero         = false
+                size_above_bytes                        = 0
+                size_below_bytes                        = 0
+                with_state                              = "ANY"
+            }
+        }
+
+        soft_delete_policy {
+            effective_time             = "2026-11-03T15:21:09.415Z"
+            retention_duration_seconds = 604800
+        }
+    }
+
+Plan: 4 to import, 0 to add, 0 to change, 0 to destroy.
+
+─────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
