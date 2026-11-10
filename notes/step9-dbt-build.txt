@@ -1,0 +1,56 @@
+[0m13:48:30  Running with dbt=1.12.5
+[0m13:48:32  Registered adapter: bigquery=1.12.1
+[0m13:48:32  Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m13:48:38  Found 12 models, 36 data tests, 7 sources, 677 macros
+[0m13:48:38  
+[0m13:48:38  Concurrency: 4 threads (target='prod')
+[0m13:48:38  
+[0m13:48:39  1 of 19 START sql table model g03_analytics.fct_order_items .................... [RUN]
+[0m13:48:43  1 of 19 OK created sql table model g03_analytics.fct_order_items ............... [[32mCREATE TABLE (408.6k rows, 39.5 MiB processed)[0m in 4.43s]
+[0m13:48:43  2 of 19 START test assert_line_revenue_is_positive ............................. [RUN]
+[0m13:48:43  3 of 19 START test assert_no_zero_price_lines .................................. [RUN]
+[0m13:48:43  4 of 19 START test dbt_utils_accepted_range_fct_order_items_qty__1 ............. [RUN]
+[0m13:48:43  5 of 19 START test dbt_utils_unique_combination_of_columns_fct_order_items_order_id__p_id  [RUN]
+[0m13:48:44  3 of 19 WARN 30 assert_no_zero_price_lines ..................................... [[33mWARN 30[0m in 1.09s]
+[0m13:48:44  6 of 19 START test not_null_fct_order_items_country ............................ [RUN]
+[0m13:48:44  2 of 19 PASS assert_line_revenue_is_positive ................................... [[32mPASS[0m in 1.12s]
+[0m13:48:44  7 of 19 START test not_null_fct_order_items_is_zero_price_anomaly .............. [RUN]
+[0m13:48:44  4 of 19 PASS dbt_utils_accepted_range_fct_order_items_qty__1 ................... [[32mPASS[0m in 1.14s]
+[0m13:48:44  8 of 19 START test not_null_fct_order_items_line_revenue ....................... [RUN]
+[0m13:48:44  5 of 19 PASS dbt_utils_unique_combination_of_columns_fct_order_items_order_id__p_id  [[32mPASS[0m in 1.14s]
+[0m13:48:44  9 of 19 START test not_null_fct_order_items_order_date ......................... [RUN]
+[0m13:48:45  6 of 19 PASS not_null_fct_order_items_country .................................. [[32mPASS[0m in 1.08s]
+[0m13:48:45  10 of 19 START test not_null_fct_order_items_p_id .............................. [RUN]
+[0m13:48:45  9 of 19 PASS not_null_fct_order_items_order_date ............................... [[32mPASS[0m in 1.00s]
+[0m13:48:45  8 of 19 PASS not_null_fct_order_items_line_revenue ............................. [[32mPASS[0m in 1.05s]
+[0m13:48:45  11 of 19 START test not_null_fct_order_items_qty ............................... [RUN]
+[0m13:48:45  7 of 19 PASS not_null_fct_order_items_is_zero_price_anomaly .................... [[32mPASS[0m in 1.12s]
+[0m13:48:45  12 of 19 START test relationships_fct_order_items_order_date__date_day__ref_dim_date_  [RUN]
+[0m13:48:45  13 of 19 START test relationships_fct_order_items_p_id__p_id__ref_dim_product_ . [RUN]
+[0m13:48:46  11 of 19 PASS not_null_fct_order_items_qty ..................................... [[32mPASS[0m in 0.83s]
+[0m13:48:46  13 of 19 PASS relationships_fct_order_items_p_id__p_id__ref_dim_product_ ....... [[32mPASS[0m in 0.81s]
+[0m13:48:46  12 of 19 PASS relationships_fct_order_items_order_date__date_day__ref_dim_date_  [[32mPASS[0m in 0.89s]
+[0m13:48:46  10 of 19 PASS not_null_fct_order_items_p_id .................................... [[32mPASS[0m in 1.00s]
+[0m13:48:46  14 of 19 START sql table model g03_analytics.fct_daily_demand .................. [RUN]
+[0m13:48:49  14 of 19 OK created sql table model g03_analytics.fct_daily_demand ............. [[32mCREATE TABLE (365.5k rows, 17.3 MiB processed)[0m in 3.05s]
+[0m13:48:49  15 of 19 START test dbt_utils_unique_combination_of_columns_fct_daily_demand_p_id__country__order_date  [RUN]
+[0m13:48:49  16 of 19 START test not_null_fct_daily_demand_demand_key ....................... [RUN]
+[0m13:48:49  17 of 19 START test not_null_fct_daily_demand_units ............................ [RUN]
+[0m13:48:49  18 of 19 START test relationships_fct_daily_demand_p_id__p_id__ref_dim_product_  [RUN]
+[0m13:48:50  17 of 19 PASS not_null_fct_daily_demand_units .................................. [[32mPASS[0m in 0.87s]
+[0m13:48:50  19 of 19 START test unique_fct_daily_demand_demand_key ......................... [RUN]
+[0m13:48:50  16 of 19 PASS not_null_fct_daily_demand_demand_key ............................. [[32mPASS[0m in 0.99s]
+[0m13:48:51  18 of 19 PASS relationships_fct_daily_demand_p_id__p_id__ref_dim_product_ ...... [[32mPASS[0m in 1.07s]
+[0m13:48:51  15 of 19 PASS dbt_utils_unique_combination_of_columns_fct_daily_demand_p_id__country__order_date  [[32mPASS[0m in 1.09s]
+[0m13:48:51  19 of 19 PASS unique_fct_daily_demand_demand_key ............................... [[32mPASS[0m in 0.87s]
+[0m13:48:51  
+[0m13:48:51  Finished running 2 table models, 17 data tests in 0 hours 0 minutes and 13.56 seconds (13.56s).
+[0m13:48:51  
+[0m13:48:51  [33mCompleted with 1 warning:[0m
+[0m13:48:51  
+[0m13:48:51  [[33mWARNING[0m]: in test assert_no_zero_price_lines (tests/assert_no_zero_price_lines.sql)
+[0m13:48:51  [[33mWARNING[0m]: Got 30 results, configured to warn if != 0
+[0m13:48:51  
+[0m13:48:51    compiled code at target/compiled/albert/tests/assert_no_zero_price_lines.sql
+[0m13:48:51  
+[0m13:48:51  Done. PASS=18 WARN=1 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=19
