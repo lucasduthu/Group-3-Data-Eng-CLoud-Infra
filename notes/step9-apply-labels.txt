@@ -1,0 +1,10 @@
+[0m[1mgoogle_bigquery_dataset.analytics: Modifying... [id=projects/data-engineering-i1/datasets/g03_analytics][0m[0m
+[0m[1mgoogle_storage_bucket.bronze: Modifying... [id=albert-de-msc2-26-g03-bronze][0m[0m
+[0m[1mgoogle_bigquery_dataset.warehouse: Modifying... [id=projects/data-engineering-i1/datasets/g03_warehouse][0m[0m
+[0m[1mgoogle_bigquery_dataset.bronze: Modifying... [id=projects/data-engineering-i1/datasets/g03_bronze][0m[0m
+[0m[1mgoogle_storage_bucket.bronze: Modifications complete after 1s [id=albert-de-msc2-26-g03-bronze][0m
+[0m[1mgoogle_bigquery_dataset.analytics: Modifications complete after 1s [id=projects/data-engineering-i1/datasets/g03_analytics][0m
+[0m[1mgoogle_bigquery_dataset.bronze: Modifications complete after 1s [id=projects/data-engineering-i1/datasets/g03_bronze][0m
+[0m[1mgoogle_bigquery_dataset.warehouse: Modifications complete after 1s [id=projects/data-engineering-i1/datasets/g03_warehouse][0m
+[0m[1m[32m
+Apply complete! Resources: 0 added, 4 changed, 0 destroyed.[0m
