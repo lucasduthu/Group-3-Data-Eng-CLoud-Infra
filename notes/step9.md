@@ -45,3 +45,7 @@ Stockage :
 - Bucket bronze : 113,70 MiB (99 MiB au step 2, plus les extractions et le clickstream du step 3)
 - BigQuery : environ 242 MiB sur les 15 plus grosses tables (notes/step9-storage-bq.txt). INFORMATION_SCHEMA.TABLE_STORAGE n'est pas activée sur le projet partagé : on a utilisé __TABLES__ par dataset
 - Optimisation suivante identifiée : les copies de test du step 4 (order_items x3, orders x2) occupent environ 49 MiB, soit 20 % du stockage BigQuery. Non supprimées : à décider avec Emma
+
+## Alerte budget
+- Budget du projet partagé data-engineering-i1 géré par l'école. Accès refusé depuis nos comptes : billing.resourcebudgets.read et billing.resourceCosts.get manquants
+- L'alerte prévient, elle does not stop la dépense. Le seul plafond réel est maximum_bytes_billed (1 Go par requête dans profiles.yml, step 4)
