@@ -1,0 +1,11 @@
+SELECT COUNT(*) AS lignes_differentes FROM (
+    (SELECT * FROM `data-engineering-i1._7d970bbc5d8c19f73a9b3cd97f407d0714006f77.anonce7e1e8ba7d2576bed41bc7d95a9061202b5591008cc190d45c24028d5b5a5f9` EXCEPT DISTINCT SELECT * FROM `data-engineering-i1._7d970bbc5d8c19f73a9b3cd97f407d0714006f77.anonde63dfa07f93fb188485e3272204885ced75cb1682b289facc8e77193fda632d`)
+    UNION ALL
+    (SELECT * FROM `data-engineering-i1._7d970bbc5d8c19f73a9b3cd97f407d0714006f77.anonde63dfa07f93fb188485e3272204885ced75cb1682b289facc8e77193fda632d` EXCEPT DISTINCT SELECT * FROM `data-engineering-i1._7d970bbc5d8c19f73a9b3cd97f407d0714006f77.anonce7e1e8ba7d2576bed41bc7d95a9061202b5591008cc190d45c24028d5b5a5f9`)); 
+-- at Dynamic SQL[2:3]
+-- at [13:1]
++--------------------+
+| lignes_differentes |
++--------------------+
+|                  0 |
++--------------------+
