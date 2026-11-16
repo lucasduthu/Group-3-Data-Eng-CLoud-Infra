@@ -4,6 +4,7 @@ resource "google_storage_bucket" "bronze" {
   storage_class               = "STANDARD"
   uniform_bucket_level_access = true
   force_destroy               = false
+  labels                      = merge(local.common_labels, { component = "bronze" })
 
   # Lifecycle du step 2 (infra/lifecycle.json)
   lifecycle_rule {
@@ -32,16 +33,19 @@ resource "google_storage_bucket" "bronze" {
 resource "google_bigquery_dataset" "bronze" {
   dataset_id = "g03_bronze"
   location   = "europe-west1"
+  labels     = merge(local.common_labels, { component = "bronze" })
 }
 
 resource "google_bigquery_dataset" "warehouse" {
   dataset_id = "g03_warehouse"
   location   = "europe-west1"
+  labels     = merge(local.common_labels, { component = "warehouse" })
 }
 
 resource "google_bigquery_dataset" "analytics" {
   dataset_id = "g03_analytics"
   location   = "europe-west1"
+  labels     = merge(local.common_labels, { component = "analytics" })
 }
 
 # Pas de google_service_account ni de google_storage_bucket_iam_member : le service

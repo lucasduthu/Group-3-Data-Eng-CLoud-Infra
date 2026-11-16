@@ -1,3 +1,10 @@
+{{ config(
+    materialized='table',
+    partition_by={'field': 'order_date', 'data_type': 'date', 'granularity': 'month'},
+    cluster_by=['p_id']
+) }}
+-- Step 9 : partition par mois de commande et cluster par produit. Les requêtes filtrées
+-- sur une période ne lisent que les mois concernés (mesure avant/après dans notes/step9.md).
 -- GRAIN : une ligne par produit dans une commande (order_id, p_id).
 SELECT
     i.order_id,

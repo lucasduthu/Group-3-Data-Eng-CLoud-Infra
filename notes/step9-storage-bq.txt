@@ -1,0 +1,19 @@
++---------------+-------------------+-------+-----------+
+|  dataset_id   |     table_id      |  mib  | row_count |
++---------------+-------------------+-------+-----------+
+| g03_warehouse | review            | 28.67 |    111322 |
+| g03_analytics | fct_daily_demand  | 27.28 |    365512 |
+| g03_analytics | fct_order_items   | 26.99 |    408560 |
+| g03_warehouse | shipping_details  | 19.48 |    200001 |
+| g03_warehouse | order_items_pc    | 17.14 |    408560 |
+| g03_warehouse | order_items       | 17.14 |    408560 |
+| g03_warehouse | order_items_p     | 17.14 |    408560 |
+| g03_warehouse | product           | 15.12 |     42858 |
+| g03_warehouse | orders            | 15.08 |    222644 |
+| g03_warehouse | orders_p          | 15.08 |    222644 |
+| g03_warehouse | customer_shipping | 12.59 |    200001 |
+| g03_warehouse | mv_daily_demand   | 12.26 |    356981 |
+| g03_warehouse | mv_weekly_demand  |  7.74 |    225345 |
+| g03_analytics | dim_product       |  6.25 |     42858 |
+| g03_warehouse | product_reviews   |  4.25 |    111322 |
++---------------+-------------------+-------+-----------+
