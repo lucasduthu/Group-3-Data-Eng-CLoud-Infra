@@ -1,0 +1,48 @@
+[
+  {
+    "name": "Unnamed__0",
+    "type": "INTEGER"
+  },
+  {
+    "name": "address_id",
+    "type": "INTEGER"
+  },
+  {
+    "name": "street_address",
+    "type": "STRING",
+    "policyTags": {
+      "names": [
+        "projects/data-engineering-i1/locations/europe-west1/taxonomies/3913213582766611740/policyTags/8341078663084824124"
+      ]
+    }
+  },
+  {
+    "name": "city",
+    "type": "STRING"
+  },
+  {
+    "name": "state",
+    "type": "STRING"
+  },
+  {
+    "name": "zip",
+    "type": "STRING"
+  },
+  {
+    "name": "country",
+    "type": "STRING"
+  },
+  {
+    "name": "phone",
+    "type": "INTEGER",
+    "policyTags": {
+      "names": [
+        "projects/data-engineering-i1/locations/europe-west1/taxonomies/3913213582766611740/policyTags/8341078663084824124"
+      ]
+    }
+  },
+  {
+    "name": "ingest_date",
+    "type": "STRING"
+  }
+]
