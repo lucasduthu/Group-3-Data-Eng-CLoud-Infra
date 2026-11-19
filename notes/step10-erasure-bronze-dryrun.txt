@@ -1,0 +1,12 @@
+112 fichiers Parquet. Adresses de la personne : [36314, 55874, 68068]
+   3 ligne(s) à traiter : clickstream/dt=2026-09-16/batch-20261103T175738-12c26d9b.parquet
+   1 ligne(s) à traiter : export/buyer/ingest_date=2026-11-03/part-0.parquet
+   1 ligne(s) à traiter : export/customer_payment/ingest_date=2026-11-03/part-0.parquet
+   3 ligne(s) à traiter : export/customer_shipping/ingest_date=2026-11-03/part-0.parquet
+   2 ligne(s) à traiter : export/orders/month=2023-10/part-0.parquet
+   1 ligne(s) à traiter : export/review/ingest_date=2026-11-03/part-0.parquet
+   3 ligne(s) à traiter : export/shipping_details/ingest_date=2026-11-03/part-0.parquet
+   1 ligne(s) à traiter : extract/customer/extract_date=2026-11-03/customer.parquet
+   1 ligne(s) à traiter : extract/orders/extract_date=2026-11-03/orders-20261103T171342-from-0.parquet
+   1 ligne(s) à traiter : extract/orders/extract_date=2026-11-03/orders-20261103T172217-from-50000.parquet
+10 fichier(s) concerné(s), 0 résidu(s) signalé(s)
