@@ -1,0 +1,7 @@
++---------------+-----------------------+--------------+
+|  schema_name  |      option_name      | option_value |
++---------------+-----------------------+--------------+
+| g03_warehouse | max_time_travel_hours | 168          |
+| g03_bronze    | max_time_travel_hours | 168          |
+| g03_analytics | max_time_travel_hours | 168          |
++---------------+-----------------------+--------------+

@@ -1,0 +1,6 @@
+Waiting on bqjob_r2af51548ba9cc4bf_000001a1f4203286_1 ... (0s) Current status: RUNNING                                                                                      Waiting on bqjob_r2af51548ba9cc4bf_000001a1f4203286_1 ... (0s) Current status: DONE   
++---------------+--------------+
+|  schema_name  | option_value |
++---------------+--------------+
+| g03_warehouse | 48           |
++---------------+--------------+
