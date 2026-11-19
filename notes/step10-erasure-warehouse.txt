@@ -1,0 +1,8 @@
+Number of affected rows: 2
+
+SELECT pseudo AS pseudonym, (SELECT COUNT(*) FROM addr) AS addresses_cleared; -- at [23:1]
++---------------------------------+-------------------+
+|            pseudonym            | addresses_cleared |
++---------------------------------+-------------------+
+| pseudo_e5824a1ad3ee622a9ad2c7a3 |                 3 |
++---------------------------------+-------------------+

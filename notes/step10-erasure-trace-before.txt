@@ -1,0 +1,36 @@
+WITH o AS (SELECT order_id FROM `data-engineering-i1.g03_warehouse.orders` WHERE buyer_id = target),
+     r AS (SELECT review_id FROM `data-engineering-i1.g03_warehouse.review` WHERE buyer_id = target),
+     a AS (SELECT address_id FROM `data-engineering-i1.g03_warehouse.customer_shipping` WHERE c_id = target)
+SELECT 'warehouse.orders' AS t, COUNT(*) AS n FROM `data-engineering-i1.g03_warehouse.orders` WHERE buyer_id = target
+UNION ALL SELECT 'warehouse.orders_p', COUNT(*) FROM `data-engineering-i1.g03_warehouse.orders_p` WHERE buyer_id = target
+UNION ALL SELECT 'warehouse.order_items', COUNT(*) FROM `data-engineering-i1.g03_warehouse.order_items` WHERE order_id IN (SELECT order_id FROM o)
+UNION ALL SELECT 'warehouse.order_items_p', COUNT(*) FROM `data-engineering-i1.g03_warehouse.order_items_p` WHERE order_id IN (SELECT order_id FROM o)
+UNION ALL SELECT 'warehouse.order_items_pc', COUNT(*) FROM `data-engineering-i1.g03_warehouse.order_items_pc` WHERE order_id IN (SELECT order_id FROM o)
+UNION ALL SELECT 'warehouse.review', COUNT(*) FROM `data-engineering-i1.g03_warehouse.review` WHERE buyer_id = target
+UNION ALL SELECT 'warehouse.product_reviews', COUNT(*) FROM `data-engineering-i1.g03_warehouse.product_reviews` WHERE review_id IN (SELECT review_id FROM r)
+UNION ALL SELECT 'warehouse.customer_shipping', COUNT(*) FROM `data-engineering-i1.g03_warehouse.customer_shipping` WHERE c_id = target
+UNION ALL SELECT 'warehouse.shipping_details', COUNT(*) FROM `data-engineering-i1.g03_warehouse.shipping_details` WHERE address_id IN (SELECT address_id FROM a)
+UNION ALL SELECT 'analytics.fct_order_items', COUNT(*) FROM `data-engineering-i1.g03_analytics.fct_order_items` WHERE order_id IN (SELECT order_id FROM o)
+UNION ALL SELECT 'bronze.orders_external', COUNT(*) FROM `data-engineering-i1.g03_bronze.orders_external` WHERE buyer_id = target
+UNION ALL SELECT 'bronze.review_external', COUNT(*) FROM `data-engineering-i1.g03_bronze.review_external` WHERE buyer_id = target
+UNION ALL SELECT 'bronze.customer_shipping_external', COUNT(*) FROM `data-engineering-i1.g03_bronze.customer_shipping_external` WHERE c_id = target
+UNION ALL SELECT 'bronze.customer_extract_external', COUNT(*) FROM `data-engineering-i1.g03_bronze.customer_extract_external` WHERE c_id = target
+ORDER BY t; -- at [3:1]
++-----------------------------------+---+
+|                 t                 | n |
++-----------------------------------+---+
+| analytics.fct_order_items         | 6 |
+| bronze.customer_extract_external  | 1 |
+| bronze.customer_shipping_external | 3 |
+| bronze.orders_external            | 2 |
+| bronze.review_external            | 1 |
+| warehouse.customer_shipping       | 3 |
+| warehouse.order_items             | 6 |
+| warehouse.order_items_p           | 6 |
+| warehouse.order_items_pc          | 6 |
+| warehouse.orders                  | 2 |
+| warehouse.orders_p                | 2 |
+| warehouse.product_reviews         | 1 |
+| warehouse.review                  | 1 |
+| warehouse.shipping_details        | 3 |
++-----------------------------------+---+

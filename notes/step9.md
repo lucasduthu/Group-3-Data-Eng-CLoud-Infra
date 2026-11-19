@@ -67,5 +67,5 @@ Stockage :
 ## Alerte budget
 - Budget du projet partagé data-engineering-i1 géré par l'école. Accès refusé depuis nos comptes : billing.resourcebudgets.read et billing.resourceCosts.get manquants
 - Destinataire voulu pour le groupe : Laura (loldakowski@albertschool.com)
-- Demande : à envoyer le 10 novembre au soir au professeur (charlestanguypro@gmail.com). En attendant sa réponse, personne du groupe ne reçoit l'alerte : écart assumé
+- Pas de demande envoyée : le budget reste géré par l'école et aucune alerte n'atteint le groupe. Écart assumé
 - L'alerte prévient, elle does not stop la dépense. Le seul plafond réel est maximum_bytes_billed (1 Go par requête dans profiles.yml, step 4)

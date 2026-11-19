@@ -1,0 +1,38 @@
++---------------+----------------------------+--------------------------------------------------------------------------------------------------------------+
+| table_schema  |         table_name         |                                                   columns                                                    |
++---------------+----------------------------+--------------------------------------------------------------------------------------------------------------+
+| g03_analytics | dim_date                   | date_day, year, quarter, month, year_month, iso_week, day_name, is_weekend                                   |
+| g03_analytics | dim_product                | p_id, product_name, price, avg_rating, n_reviews                                                             |
+| g03_analytics | fct_daily_demand           | demand_key, p_id, country, order_date, units, revenue                                                        |
+| g03_analytics | fct_order_items            | order_id, p_id, qty, price_at_purchase, line_revenue, is_zero_price_anomaly, order_date, country, avg_rating |
+| g03_analytics | int_order_items            | order_id, p_id, qty, price_at_purchase, is_zero_price_anomaly, order_date, buyer_id                          |
+| g03_analytics | int_product_ratings        | p_id, avg_rating, n_reviews                                                                                  |
+| g03_analytics | stg_addresses              | c_id, country                                                                                                |
+| g03_analytics | stg_order_items            | order_id, p_id, qty, price_at_purchase                                                                       |
+| g03_analytics | stg_orders                 | order_id, buyer_id, payment_id, discount_id, order_date                                                      |
+| g03_analytics | stg_product                | p_id, product_name, price                                                                                    |
+| g03_analytics | stg_product_reviews        | p_id, review_id                                                                                              |
+| g03_analytics | stg_review                 | review_id, buyer_id, rating, review_text, review_title                                                       |
+| g03_bronze    | clickstream_dlq            | raw, reason, rejected_at, kafka_partition, kafka_offset, dt                                                  |
+| g03_bronze    | customer_extract_external  | c_id, fname, lname, phone, email, _extracted_at, extract_date                                                |
+| g03_bronze    | customer_shipping_external | Unnamed__0, address_id, c_id, is_default, ingest_date                                                        |
+| g03_bronze    | order_items_external       | order_id, p_id, qty, price_at_purchase, month                                                                |
+| g03_bronze    | orders_external            | Unnamed__0, order_id, buyer_id, discount_id, payment_id, order_date, month                                   |
+| g03_bronze    | product_external           | Unnamed__0, p_id, p_name, p_desc, price, qty, category_id, ingest_date                                       |
+| g03_bronze    | product_reviews_external   | Unnamed__0, p_id, review_id, ingest_date                                                                     |
+| g03_bronze    | review_external            | Unnamed__0, review_id, buyer_id, r_desc, title, rating, seller_product_flag, ingest_date                     |
+| g03_bronze    | shipping_details_external  | Unnamed__0, address_id, street_address, city, state, zip, country, phone, ingest_date                        |
+| g03_warehouse | customer_shipping          | Unnamed__0, address_id, c_id, is_default, ingest_date                                                        |
+| g03_warehouse | mv_daily_demand            | p_id, order_date, units, order_lines                                                                         |
+| g03_warehouse | mv_weekly_demand           | p_id, week, units, order_lines                                                                               |
+| g03_warehouse | order_items                | order_id, p_id, qty, price_at_purchase, order_date                                                           |
+| g03_warehouse | order_items_p              | order_id, p_id, qty, price_at_purchase, order_date                                                           |
+| g03_warehouse | order_items_pc             | order_id, p_id, qty, price_at_purchase, order_date                                                           |
+| g03_warehouse | orders                     | Unnamed__0, order_id, buyer_id, discount_id, payment_id, month, order_date                                   |
+| g03_warehouse | orders_p                   | Unnamed__0, order_id, buyer_id, discount_id, payment_id, month, order_date                                   |
+| g03_warehouse | product                    | Unnamed__0, p_id, p_name, p_desc, price, qty, category_id, ingest_date                                       |
+| g03_warehouse | product_reviews            | Unnamed__0, p_id, review_id, ingest_date                                                                     |
+| g03_warehouse | product_reviews_c          | Unnamed__0, p_id, review_id, ingest_date                                                                     |
+| g03_warehouse | review                     | Unnamed__0, review_id, buyer_id, r_desc, title, rating, seller_product_flag, ingest_date                     |
+| g03_warehouse | shipping_details           | Unnamed__0, address_id, street_address, city, state, zip, country, phone, ingest_date                        |
++---------------+----------------------------+--------------------------------------------------------------------------------------------------------------+

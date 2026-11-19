@@ -1,0 +1,5 @@
+[0m13:59:36  [[33mWARNING[0m]: Got 30 results, configured to warn if != 0
+[0m13:59:36  
+[0m13:59:36    compiled code at target/compiled/albert/tests/assert_no_zero_price_lines.sql
+[0m13:59:36  
+[0m13:59:36  Done. PASS=46 WARN=2 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=48

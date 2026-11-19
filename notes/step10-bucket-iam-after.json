@@ -1,0 +1,28 @@
+{
+  "bindings": [
+    {
+      "members": [
+        "user:eneumayer@albertschool.com",
+        "user:lduthu@albertschool.com",
+        "user:loldakowski@albertschool.com",
+        "user:mmaudet@albertschool.com"
+      ],
+      "role": "roles/admin"
+    },
+    {
+      "members": [
+        "projectEditor:data-engineering-i1",
+        "projectOwner:data-engineering-i1"
+      ],
+      "role": "roles/storage.legacyBucketOwner"
+    },
+    {
+      "members": [
+        "projectEditor:data-engineering-i1",
+        "projectOwner:data-engineering-i1"
+      ],
+      "role": "roles/storage.legacyObjectOwner"
+    }
+  ],
+  "etag": "CAw="
+}

@@ -1,0 +1,28 @@
++---------------+----------------------------+-------------+
+| table_schema  |         table_name         | column_name |
++---------------+----------------------------+-------------+
+| g03_analytics | int_order_items            | buyer_id    |
+| g03_analytics | stg_addresses              | c_id        |
+| g03_analytics | stg_orders                 | buyer_id    |
+| g03_analytics | stg_review                 | buyer_id    |
+| g03_bronze    | customer_extract_external  | c_id        |
+| g03_bronze    | customer_shipping_external | address_id  |
+| g03_bronze    | customer_shipping_external | c_id        |
+| g03_bronze    | orders_external            | buyer_id    |
+| g03_bronze    | review_external            | buyer_id    |
+| g03_bronze    | shipping_details_external  | address_id  |
+| g03_dbt_emma  | int_order_items            | buyer_id    |
+| g03_dbt_emma  | stg_addresses              | c_id        |
+| g03_dbt_emma  | stg_orders                 | buyer_id    |
+| g03_dbt_emma  | stg_review                 | buyer_id    |
+| g03_dbt_md    | int_order_items            | buyer_id    |
+| g03_dbt_md    | stg_addresses              | c_id        |
+| g03_dbt_md    | stg_orders                 | buyer_id    |
+| g03_dbt_md    | stg_review                 | buyer_id    |
+| g03_warehouse | customer_shipping          | address_id  |
+| g03_warehouse | customer_shipping          | c_id        |
+| g03_warehouse | orders                     | buyer_id    |
+| g03_warehouse | orders_p                   | buyer_id    |
+| g03_warehouse | review                     | buyer_id    |
+| g03_warehouse | shipping_details           | address_id  |
++---------------+----------------------------+-------------+

@@ -1,0 +1,3 @@
+soft_delete_policy:
+  effectiveTime: '2026-11-03T15:21:09.415000+00:00'
+  retentionDurationSeconds: '604800'
